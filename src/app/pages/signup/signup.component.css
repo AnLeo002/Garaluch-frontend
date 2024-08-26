@@ -1,0 +1,31 @@
+.ad{
+  width: 40%;
+  padding: 20px;
+}
+.ad h3{
+  font-size: 35px;
+  font-weight: 600;
+}
+img{
+  height: 380px;
+  margin: 13px auto;
+  display: flex;
+  align-items: center;
+}
+.al-ri{
+  text-align: end;
+}
+.blue{
+  color: rgb(15, 78, 165);
+}
+.red{
+  color: red;
+}
+.form{
+  width: 50%;
+}
+mat-form-field{
+  width: 50%;
+  min-width: 300px;
+  padding-right: 20px;
+}

@@ -1,0 +1,31 @@
+.prom{
+  min-width: 210px;
+  width: 15%;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  transition: all 400ms;
+}
+.prom img{
+  width: 100%;
+  height: 230px;
+}
+h1{
+  font-weight: 900;
+}
+h3{
+  padding: 5px;
+  font-size: 18px;
+  font-weight: 900;
+}
+.price{
+  padding: 5px;
+  font-weight: 600;
+}
+.des{
+  color: rgb(102, 102, 102);
+}
+.prom:hover{
+  scale: 1.05;
+  box-shadow: 13px 16px 25px -13px rgba(0,0,0,0.31);
+}

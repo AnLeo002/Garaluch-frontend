@@ -1,0 +1,25 @@
+<section>
+  <article class="flex-space">
+    <div class="ad center">
+      <h3 class="blue">Los mejores productos</h3>
+      <h3 class="al-ri blue">al mejor precio</h3>
+    <img class="center" src="../../../assets/garalunch.png" alt="" srcset="">
+    <h3 class="red">Encuentra promociones</h3>
+      <h3 class="al-ri red">en un solo lugar</h3>
+    </div>
+    <div class="center">
+      <h1 class="text-center p20 fs30">Inicio de sesión</h1>
+      <form (submit)="formSubmit()" class="column w400">
+        <mat-form-field appearance="outline" class="w100">
+          <mat-label>Nombre de usuario</mat-label>
+          <input type="text" name="username" matInput [(ngModel)]="loginData.username"     placeholder="Digite su nombre de usuario">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w100">
+          <mat-label>Contraseña</mat-label>
+          <input type="password" name="password" matInput [(ngModel)]="loginData.password" placeholder="Digite su contraseña">
+        </mat-form-field>
+        <button class="button-submit no-di">Iniciar</button>
+      </form>
+    </div>
+  </article>
+</section>

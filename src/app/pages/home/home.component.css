@@ -1,0 +1,174 @@
+
+.container{
+  position: relative;
+  width: 100%;
+  height: 50vh;
+  background-color: black;
+  overflow: hidden;
+}
+.slider input{
+  visibility: hidden;
+  display: none;
+}
+.buttons{
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  bottom: 50px;
+  gap :10px;
+}
+.buttons label{
+  width: 20px;
+  height: 10px;
+  background-color: white;
+  opacity: 0.5;
+  cursor: pointer;
+  z-index: 1;
+  transition: 300ms ease-in-out;
+}
+.buttons label:hover{
+  scale: 1.2;
+  opacity: 1;
+}
+.slider input:nth-child(1):checked ~ .buttons label:nth-child(1),
+.slider input:nth-child(2):checked ~ .buttons label:nth-child(2),
+.slider input:nth-child(3):checked ~ .buttons label:nth-child(3){
+  opacity: 1;
+  scroll-margin: 1.2;
+  width: 40px;
+}
+.content{
+  position: relative;
+  width: 300vw;
+  display: flex;
+  transition: 400ms ease-in-out;
+}
+.content:hover{
+  animation: slider 20s infinite;
+}
+@keyframes slider {
+  0%{
+    left:0;
+  }
+  20%{
+    left: -100vw;
+  }
+  40%{
+    left: -200%;
+  }
+  60%{
+    left:-200vw;
+  }
+  80%{
+    left: -100vw;
+  }
+  100%{
+    left: 0%;
+  }
+  
+}
+.content div h2{
+  padding: 50px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: 600;
+}
+.firstSlide, .secondSlide, .thirdSlide{
+  position: relative;
+  width: 100vw;
+  height: 50vh;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.firstSlide{
+  background:linear-gradient(rgba(5, 5, 5, 0.562),rgba(5, 5, 5, 0.763)), url("../../../assets/inicio.avif");
+}
+.secondSlide{
+  background-color: blue;
+}
+.slider input:nth-child(1):checked ~ .content{
+  left: 0;
+  animation: none;
+}
+.slider input:nth-child(2):checked ~ .content{
+  left: -100vw;
+  animation: none;
+}
+.slider input:nth-child(3):checked ~ .content{
+  left: -200vw;
+  animation: none;
+}
+section{
+  padding: 0px;
+}
+h2{
+  padding: 20px;
+  font-weight: 600;
+  font-size: 30px;
+}
+hr{
+  margin: 0 0px 20px;
+  padding: 1px;
+  background: #e8e8e8;
+  border-color: #fff;
+}
+.make{
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  background:#000;
+  width: 98.9vw;
+  text-align: center;
+  color: #fff;
+  transition: 300ms ease-in-out;
+}
+.make1{
+  background:linear-gradient(rgba(0, 0, 0, 0.7),rgba(5, 5, 5, 0.6)), url("../../../assets/cook.jpg")center / cover;
+}
+.make2{
+  background:linear-gradient(rgba(0, 0, 0, 0.70),rgba(5, 5, 5, 0.6)), url("../../../assets/friends.jpg")center / cover;
+}
+.make3{
+  background:linear-gradient(rgba(0, 0, 0, 0.7),rgba(5, 5, 5, 0.6)), url("../../../assets/children.webp")center / cover;
+}
+.make:hover{
+  height: 430px;
+  opacity: 0.9;
+}
+.prom{
+  min-width: 210px;
+  width: 15%;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  transition: all 400ms;
+}
+.prom img{
+  width: 100%;
+  height: 230px;
+}
+h1{
+  font-weight: 900;
+}
+h3{
+  padding: 5px;
+  font-size: 18px;
+  font-weight: 900;
+}
+.price{
+  padding: 5px;
+  font-weight: 600;
+}
+.des{
+
+  color: rgb(102, 102, 102);
+}
+.prom:hover{
+  scale: 1.05;
+  box-shadow: 13px 16px 25px -13px rgba(0,0,0,0.31);
+}

@@ -1,0 +1,51 @@
+<mat-card class="pd20">
+  <h1 class="text-center">Detalles de perfil</h1>
+  <mat-card-content>
+    <div class="bootstrap-wrapper">
+      <div class="container">
+        <div class="text-center">
+          <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="img-profile" class="profile-img">
+          <h1 class="mt20">{{user.name}} {{user.lastName}}</h1>
+        </div>
+        <div >
+            <table class="table ">
+              <tr>
+                <td>Nombre de usuario</td>
+                <td>{{user.username}}</td>
+              </tr>
+              <tr>
+                <td>Identificación</td>
+                <td>{{user.id}}</td>
+              </tr>
+              <tr>
+                <td>Nombre</td>
+                <td>{{user.name}}</td>
+              </tr>
+              <tr>
+                <td>Apellido</td>
+                <td>{{user.lastName}}</td>
+              </tr>
+              <tr>
+                <td>Teléfono</td>
+                <td>{{user.tel}}</td>
+              </tr>
+              <tr>
+                <td>Rol</td>
+                <td>{{user.roles[0].roleEnum}}</td>
+              </tr>
+              <tr>
+                <td>Estado</td>
+                <td>{{user.enabled ? "Activo" : 
+                "No activo"}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    <mat-card-actions class="flex-around">
+      <button mat-raised-button color="primary" class="mr20" routerLink="/{{role}}/update-profile">Actualizar</button>
+      <button mat-raised-button color="warn" (click)="deleteUser()" >Eliminar perfil</button>
+    </mat-card-actions>
+  </mat-card-content>
+</mat-card>
+<app-footer></app-footer>

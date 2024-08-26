@@ -1,0 +1,76 @@
+<mat-toolbar class="flex-space">
+  <a [routerLink]="'/'">
+    <img src="../../../assets/logo.png" alt="logo" class="logo" />
+  </a>
+  <nav>
+    <button *ngIf="!login.isLoggedIn()" [routerLink]="'/login'" class="no-di b-m">
+      Iniciar sesión
+    </button>
+    <button *ngIf="!login.isLoggedIn()" [routerLink]="'/signup'" class="no-di b-m">
+      Registrarse
+    </button>
+    <button *ngIf="login.isLoggedIn() && role == 'user'" class="no-di b-m" routerLink="/user/shopping-cart">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
+    <button *ngIf="login.isLoggedIn()" (click)="logOut()" class="no-di b-m">
+      Cerrar sesión
+    </button>
+    <button *ngIf="login.isLoggedIn()" class="no-di b-m" (click)="sidenav.toggle()">
+      <mat-icon  *ngIf="!sidenav.opened">menu</mat-icon>
+      <mat-icon  *ngIf="sidenav.opened">close</mat-icon>
+    </button>
+  </nav>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav>
+    <nav class="column">
+      <button [routerLink]="role+'/'" class="no-di button-sidenav"><mat-icon>home</mat-icon>
+      Home
+      </button>
+      <button [routerLink]="role+'/profile'" class="no-di button-sidenav"><mat-icon>account_circle</mat-icon>
+        Perfil
+      </button>
+      
+      <button class="no-di button-sidenav" *ngIf="role && role == 'admin'" [routerLink]="role+'/add-product'">
+        <mat-icon>add</mat-icon>
+        Agregar productos
+      </button>
+      <button class="no-di button-sidenav" *ngIf="role && role == 'admin'" [routerLink]="role+'/products'">
+        <mat-icon>list</mat-icon>
+        Productos
+      </button>
+      <button class="no-di button-sidenav" *ngIf="role && role == 'admin'" [routerLink]="role+'/add-category'">
+        <mat-icon>add</mat-icon>
+        Agregar categoria
+      </button>
+      <button class="no-di button-sidenav" *ngIf="role && role == 'admin'" [routerLink]="role+'/categories'">
+        <mat-icon>list</mat-icon>
+        Categorias
+      </button>
+      <button class="no-di button-sidenav" *ngIf="role && role == 'admin'" [routerLink]="role+'/add-prom'">
+        <mat-icon>add</mat-icon>
+        Agregar promociones
+      </button>
+      <button class="no-di button-sidenav" *ngIf="role && role == 'admin'" [routerLink]="role+'/proms'">
+        <mat-icon>list</mat-icon>
+        Promociones
+      </button>
+      <button class="no-di button-sidenav" *ngIf="role && role == 'user'">
+        <mat-icon>list</mat-icon>
+        Productos
+      </button>
+      <button class="no-di button-sidenav" *ngIf="role && role == 'user'">
+        <mat-icon>list</mat-icon>
+        Promociones
+      </button>
+
+      <button (click)="logOut()" class="no-di button-sidenav">
+        <mat-icon>logout</mat-icon>
+        Cerrar sesión
+      </button>
+    </nav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+      <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

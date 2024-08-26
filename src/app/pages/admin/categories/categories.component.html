@@ -1,0 +1,27 @@
+<mat-card>
+  <h1 class="text-center p20">Categorias</h1>
+  <mat-card-content class="column">
+    <div class="mt20">
+      <button class="button-submit" routerLink="/admin/add-category">Crear categoria</button>
+    </div>
+    <section *ngIf="!categories" class="flex-center message">
+      <h1 >No existen registros hasta el momento</h1>
+    </section>
+    <table *ngIf="categories" class="table text-center p20">
+      <tr>
+        <td><b>Id</b></td>
+        <td><b>Categoria</b></td>
+        <td></td>
+      </tr>
+        <tr *ngFor="let c of categories " >
+          <td>{{c.id}}</td>
+          <td>{{c.name}}</td>
+          <td>
+            <button mat-raised-button color="primary" class="mr20" [routerLink]="'/admin/update-category/'+c.id">Actualizar</button>
+            <button mat-raised-button color="warn" (click)="deleteElement(c.id,'la categoria')" >Eliminar</button>
+          </td>
+        </tr>
+    </table>
+  </mat-card-content>
+</mat-card>
+<app-footer></app-footer>

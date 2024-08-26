@@ -1,0 +1,29 @@
+<mat-card class="m20">
+  <mat-card-content>
+    <h1 class="text-center">Promociones</h1>
+    <ul class="flex-grap">
+      <li class="prom column" *ngFor="let prom of promList" [routerLink]="'/user/info/'+prom.id+'/prom'">
+            <img src="{{prom.url}}" alt="">
+            <h3 >{{prom.name}}</h3>
+            <h4 class="price text-center">${{prom.price}}</h4>
+            <hr>
+      </li>
+    </ul>
+  </mat-card-content>
+</mat-card>
+<mat-card class="m20">
+  <mat-card-content>
+    <h1 class="text-center">Productos</h1>
+    <ul class="flex-grap">
+      <li class="prom column" *ngFor="let pro of productList" [routerLink]="'/user/info/'+pro.id+'/product'">
+            <img src="{{pro.url}}" alt="">
+            <h3 >{{pro.name}}</h3>
+            <h4 class="des text-center">{{pro.description}}</h4>
+            <h4 class="price">$ {{pro.price}}</h4>
+            <hr>
+      </li>
+    </ul>
+  </mat-card-content>
+</mat-card>
+
+<app-footer></app-footer>

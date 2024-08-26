@@ -1,0 +1,13 @@
+mat-card{
+  margin: 20px 10px 0px;
+  padding: 20px;
+}
+h1{
+  padding: 20px;
+}
+mat-form-field{
+  margin: 18px;
+}
+textarea{
+  resize: none;
+} 

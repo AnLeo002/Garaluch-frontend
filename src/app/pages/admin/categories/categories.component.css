@@ -1,0 +1,15 @@
+.table{
+  width: 70%;
+  border-collapse: collapse;
+  margin: 10px;
+}
+.table tr td{
+  padding: 15px 10px;
+  border-bottom: 0.5px solid gainsboro
+}
+.table tr td b{
+  font-weight: 800;
+}
+button{
+  margin: 0 20px;
+}

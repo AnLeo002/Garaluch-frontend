@@ -1,0 +1,54 @@
+<section>
+  <article class="flex-space">
+    <div class="ad center">
+      <h3 class="blue">Los mejores productos</h3>
+      <h3 class="al-ri blue">al mejor precio</h3>
+      <img class="center" src="../../../assets/garalunch.png" alt="" srcset="" />
+      <h3 class="red">Encuentra promociones</h3>
+      <h3 class="al-ri red">en un solo lugar</h3>
+    </div>
+    <div class="center form">
+      <h1 class="text-center p20 fs30">Registro en la app</h1>
+      <form (submit)="formSubmit()" class="flex-wrap">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input required type="text" name="name" matInput [(ngModel)]="user.name"
+            placeholder="Digite su nombre" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Apellido</mat-label>
+          <input required type="text" name="lastName" matInput [(ngModel)]="user.lastName"
+            placeholder="Digite su apellido" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre de usuario</mat-label>
+          <input required type="text" name="username" matInput [(ngModel)]="user.username"
+            placeholder="Digite su nombre de usuario" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input required type="password" name="password" matInput [(ngModel)]="user.password"
+            placeholder="Digite su contraseña" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Correo</mat-label>
+          <input required type="email" name="email" matInput [(ngModel)]="user.email"
+            placeholder="Digite su correo electronico" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Telefono</mat-label>
+          <input required type="text" name="tel" matInput [(ngModel)]="user.tel"
+            placeholder="Digite su número de teléfono" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo de usuario</mat-label>
+          <mat-select [(ngModel)]="user.roleRequest.roleListName[0]" name="roleRequest">
+            <mat-option value="TEACH">Profesor</mat-option>
+            <mat-option value="FATHER">Padre de familia</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button class="no-di button-submit">Registrarse</button>
+      </form>
+    </div>
+  </article>
+</section>

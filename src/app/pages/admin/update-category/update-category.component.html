@@ -1,0 +1,13 @@
+<mat-card *ngIf="category">
+  <h1 class="text-center">Actualizar categoria</h1>
+  <mat-card-content>
+    <form class="column" (ngSubmit)="formSubmit()">
+      <mat-form-field class="w400">
+        <mat-label>Nombre de la categoria</mat-label>
+        <input [(ngModel)]="category.name" type="text" name="name" matInput required />
+      </mat-form-field>
+      <button mat-raised-button color="primary">Actualizar categoria</button>
+    </form>
+  </mat-card-content>
+</mat-card>
+<app-footer></app-footer>

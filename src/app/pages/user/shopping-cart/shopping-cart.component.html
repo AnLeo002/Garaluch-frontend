@@ -1,0 +1,24 @@
+<mat-card>
+  <h1 class="text-center p20">Carrito de compras</h1>
+  <mat-card-content class="column">
+    <section *ngIf="invoice" class="flex-center message">
+      <h1 >No existen registros hasta el momento</h1>
+    </section>
+    <table *ngIf="!invoice" class="table text-center p20">
+      <tr>
+        <td><b>Nombre del producto</b></td>
+        <td><b>Cantidad</b></td>
+        <td></td>
+      </tr>
+        <tr *ngFor="let i of invoiceProm" >
+          <td>{{i.promName}}</td>
+          <td>{{i.promAmount}}</td>
+          <td>
+            <!-- <button mat-raised-button color="primary" class="mr20" [routerLink]="'/admin/update-category/'+c.id">Actualizar</button>
+            <button mat-raised-button color="warn" (click)="deleteElement(c.id,'la categoria')" >Eliminar</button> -->
+          </td>
+        </tr>
+    </table>
+  </mat-card-content>
+</mat-card>
+<app-footer></app-footer>

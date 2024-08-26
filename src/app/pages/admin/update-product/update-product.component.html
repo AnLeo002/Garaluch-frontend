@@ -1,0 +1,52 @@
+<mat-card *ngIf="product">
+  <button mat-raised-button class="back" color="warn" routerLink="/admin/products">
+    <mat-icon>logout</mat-icon>Volver</button>
+  <h1 class="text-center">
+    Actualizar el producto <b>{{ product.name }}</b>
+  </h1>
+  <mat-card-content>
+    <form class="flex-grap" (ngSubmit)="formSubmit()">
+      <div class="flex-grap">
+        <mat-form-field class="w400">
+          <mat-label>Nombre del producto</mat-label>
+          <input [(ngModel)]="product.name" type="text" name="name" matInput required />
+        </mat-form-field>
+        <mat-form-field class="w400">
+          <mat-label>Cantidad</mat-label>
+          <input [(ngModel)]="product.amount" type="number" name="amount" matInput required />
+        </mat-form-field>
+        <mat-form-field class="w400">
+          <mat-label>Precio</mat-label>
+          <input [(ngModel)]="product.price" type="text" name="price" matInput required />
+        </mat-form-field>
+        <mat-form-field class="w400">
+          <mat-label>Imagen Url</mat-label>
+          <input [(ngModel)]="product.url" type="text" name="url" matInput required />
+        </mat-form-field>
+        <mat-form-field class="w400">
+          <mat-label>Dia de compra</mat-label>
+          <input matInput [matDatepicker]="date" [(ngModel)]="product.dayBuying" name="dayBuying">
+          <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+          <mat-datepicker #date></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="w400">
+          <mat-label>Descripción del producto</mat-label>
+          <textarea [(ngModel)]="product.description" rows="5" name="description"
+            placeholder="Ingrese la descripción" matInput required resize="none"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="w400">
+          <mat-label>Categoria del producto</mat-label>
+          <mat-select name="category" [(ngModel)]="product.category" required>
+            <mat-option *ngFor="let c of categories" [value]="c.name">{{
+              c.name
+              }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="primary">Actualizar</button>
+      
+    </form>
+  </mat-card-content>
+</mat-card>
+<app-footer></app-footer>

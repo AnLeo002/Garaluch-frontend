@@ -1,0 +1,61 @@
+<button mat-raised-button class="back no-di" color="warn" routerLink="/user/">
+  <mat-icon>logout</mat-icon>Volver
+</button>
+<section class="flex-center" *ngIf="object">
+  <img src="{{ object.url }}" alt="" class="img-pro" />
+  <mat-card class="info-pro">
+    <mat-card-content *ngIf="object">
+      <article class="flex-around">
+        <div class="container">
+          <h1>{{ object.name }}</h1>
+          <h3 class="des-pro">{{ object.description }}</h3>
+          <h5>
+            Oferta valida desde el {{ object.startDate }} hasta
+            {{ object.endDate }}
+          </h5>
+          <h5>Cantidad:{{ object.amount }}</h5>
+          <h3 id="price">$ {{ object.price }}</h3>
+          <div class="add-zone" *ngIf="!productsAdd(id,refer)">
+            <button mat-raised-button color="primary" class="add-btn"
+              (click)="add(object.id, refer)">
+              Agregar
+              <mat-icon>shopping_cart</mat-icon>
+            </button>
+          </div>
+          <section *ngIf="productsAdd(id,refer)" class="add-zone">
+            <div class="flex-around add-btn">
+              <button mat-raised-button color="warn" class="" (click)="substract(object.id, refer)">
+                -
+              </button>
+              <h3 id="amount-btn">Cantidad: {{ invoice.amount }}</h3>
+              <button mat-raised-button color="primary" class="" (click)="add(object.id, refer)">
+                +
+              </button>
+            </div>
+          </section>
+        </div>
+      </article>
+    </mat-card-content>
+  </mat-card>
+</section>
+<mat-card class="w80 mt20 center" *ngIf="refer == 'prom'">
+  <mat-card-content *ngIf="object.productEntities.length > 0">
+    <h2 class="text-center p20">Productos que contiene la promoción</h2>
+    <ul class="flex-grap">
+      <li class="prom column" *ngFor="let pro of object.productEntities"
+        [routerLink]="'/user/info/' + pro.id + '/prom'">
+        <img src="{{ pro.url }}" alt="" />
+        <h3>{{ pro.name }}</h3>
+        <h4 class="des text-center">{{ pro.description }}</h4>
+        <hr />
+      </li>
+    </ul>
+  </mat-card-content>
+  <mat-card-content *ngIf="object.productEntities.length == 0">
+    <h2 class="text-center p20">
+      Esta promoción no contiene articulos adicionales
+    </h2>
+  </mat-card-content>
+</mat-card>
+
+<app-footer></app-footer>

@@ -1,0 +1,57 @@
+<!-- <mat-card class="p20">
+  <h1 class="text-center p20">Promociones</h1>
+  <mat-card-content>
+      <div class="container">
+        <div class="text-center mt20">
+          <button class="button-submit" routerLink="/admin/add-prom">Crear promoción</button>
+        </div>
+        <section *ngIf="!promList" class="flex-center message">
+          <h1 >No existen registros hasta el momento</h1>
+        </section>
+        <div class="row" *ngIf="promList">
+          <div class="col-md-12">
+            <table class="table text-center w100 p20">
+              <tr>
+                <td>Id</td>
+                <td>Promoción</td>
+                <td>Descripción</td>
+                <td>Fecha inicio</td>
+                <td>Fecha final</td>
+                <td></td>
+              </tr>
+                <tr *ngFor="let p of promList " >
+                  <td>{{p.id}}</td>
+                  <td>{{p.name}}</td>
+                  <td>{{p.description}}</td>
+                  <td>{{p.startDate}}</td>
+                  <td>{{p.endDate}}</td>
+                  <td>
+                    <button mat-raised-button color="primary" [routerLink]="'/admin/update-prom/'+p.id" class="mr20">Actualizar</button>
+                    <button mat-raised-button color="warn" (click)="deleteElement(p.id,'el producto')" >Eliminar</button>
+                  </td>
+                </tr>
+            </table>
+          </div>
+        </div>
+      </div> 
+  </mat-card-content>
+</mat-card>-->
+<mat-card class=" m20" *ngFor="let p of promList">
+  <mat-card-header >
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{p.name}}</mat-card-title>
+    <mat-card-subtitle>{{p.description}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="flex-center">
+    <mat-card-actions>
+      <button mat-flat-button color="primary" [routerLink]="'/admin/products/'+p.id">Productos</button>
+      <button mat-stroked-button color="primary" class="ml20 bw">Inicio: {{p.startDate}}</button>
+      <button mat-stroked-button color="primary" class="ml20 bw">Final: {{p.endDate}}</button>
+      <button mat-stroked-button color="primary" class="ml20 bw">Precio: {{p.price}}</button>
+      <button mat-stroked-button color="primary" class="ml20 bw">Cantidad: {{p.amount}}</button>
+      <button mat-raised-button color="primary" [routerLink]="'/admin/update-prom/'+p.id" class="mr20">Actualizar</button>
+      <button mat-raised-button color="warn" (click)="deleteElement(p.id,'el producto')" >Eliminar</button>
+    </mat-card-actions>
+  </mat-card-content>
+</mat-card>
+<app-footer></app-footer>

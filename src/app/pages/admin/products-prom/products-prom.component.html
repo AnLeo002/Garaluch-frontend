@@ -1,0 +1,44 @@
+<mat-card class="p20">
+  <h1 class="text-center p20">Productos</h1>
+  <mat-card-content>
+      <div class="container">
+        <div class="text-center mt20">
+          <button class="button-submit" [routerLink]="'/admin/add-products-prom/'+promId">Agregar producto a la promoción</button>
+        </div>
+        <section *ngIf="!productEntities" class="flex-center message">
+          <h1 >No existen registros hasta el momento</h1>
+        </section>
+        <div class="row" *ngIf="productEntities">
+          <div class="col-md-12">
+            <table class="table text-center w100 p20">
+              <tr>
+                <td>Id</td>
+                <td>Producto</td>
+                <td>Dia de compra</td>
+                <td>Descripcion</td>
+                <td>Precio</td>
+                <td>Cantidad</td>
+                <td>Categoria</td>
+                <td></td>
+              </tr>
+                <tr *ngFor="let p of productEntities " >
+                  <td>{{p.id}}</td>
+                  <td>{{p.name}}</td>
+                  <td>{{p.dayBuying}}</td>
+                  <td>{{p.description}}</td>
+                  <td>{{p.price}}</td>
+                  <td>{{p.amount}}</td>
+                  <td>{{p.category}}</td>
+                  <!-- <td>
+                    <button mat-raised-button color="primary" [routerLink]="'/admin/update-product/'+p.id" class="mr20">Actualizar</button>
+                    <button mat-raised-button color="warn"  >Eliminar de la promoción</button>
+                  </td> -->
+                </tr> 
+            </table>
+          </div>
+        </div>
+      </div>
+  </mat-card-content>
+</mat-card>
+<app-footer></app-footer>
+
