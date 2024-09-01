@@ -13,8 +13,8 @@ import { ShoppingService } from '../../services/shopping.service';
 export class InfoComponent implements OnInit{
   id:any;
   refer:any=null;//Representa el tipo de objeto
-  object:any;
-  proList:any=[];
+  object:any;//Aqui guardaremos la promocion o el producto
+  amount:any;//Guardamos la cantidad que el usuario va a elegir
   invoice:any;
   
   constructor(private router:ActivatedRoute,private promService:PromService,private productService:ProductService,private shoppingService:ShoppingService){
@@ -23,8 +23,6 @@ export class InfoComponent implements OnInit{
 
   ngOnInit(): void {
     this.invoice = this.shoppingService.getShoppingInvoice();
-    
-
     this.id= this.router.snapshot.params["id"];
     this.refer = this.router.snapshot.params["refer"];
   
@@ -49,25 +47,34 @@ export class InfoComponent implements OnInit{
     }
     
   }
+
   add(id:any,refer:any){
-    if(refer == " prom"){
-      let promFinded:boolean = this.invoice.promInvoiceDTOList.some((prom:any) => prom.id === id);
-      console.log(promFinded);
-      if(promFinded){
-        this.invoice.promInvoiceDTOList.push();
-      }else{
-        console.log("papi estoy aqui");
-      }
-    }else{
-      let productFinded:boolean = this.invoice.productInvoiceDTOList.some((product:any) => product.id === id);
-      if(productFinded){
-        this.invoice.productInvoiceDTOList.push();
-      }
+    let objectAmount ={//Este objeto sera el encargado de guardar el id y la cantidad del producto o promocion que se almacenará en la factura
+      id : id,
+      amount : 1
     }
-    if(this.invoice.amount >= this.object.amount || this.object.amount == 0){
+    if(this.amount >= this.object.amount || this.object.amount == 0){
       Swal.fire("No es posible agregar mas productos","","warning")
     }else{
-     this.invoice.amount++;
+      if(refer == "prom"){
+        let promFinded:boolean = this.invoice.promInvoiceDTOList.some((prom:any) => prom.id == id);
+        if(!promFinded){//Si el producto o prom no se encuentra en la factura se agrega
+          this.invoice.promInvoiceDTOList.push(objectAmount);
+          this.amount = objectAmount.amount;
+        }else{//Si se encuentra se le agrega o se suma cantidad
+          let promFinded = this.invoice.promInvoiceDTOList.find((prom:any)=>prom.id == id);
+          this.amount = ++promFinded.amount;
+        }
+      }else{
+        let productFinded:boolean = this.invoice.productInvoiceDTOList.some((product:any) => product.id == id);
+        if(!productFinded){
+          this.invoice.productInvoiceDTOList.push(objectAmount);
+          this.amount = objectAmount.amount;
+        }else{
+          let product = this.invoice.productInvoiceDTOList.find((prom:any)=>prom.id == id);
+          this.amount = ++product.amount;
+        }
+      }
      this.shoppingService.addShoppingInvoice(this.invoice);
       
     }
@@ -81,9 +88,21 @@ export class InfoComponent implements OnInit{
 
   productsAdd(id:any,refer:any){
     if(refer == "prom"){
-      return this.invoice.promInvoiceDTOList.some((prom:any) => prom.id === id);
+      return this.invoice.promInvoiceDTOList.some((prom:any) => prom.id == id);
     }else{
-      return this.invoice.productInvoiceDTOList.some((product:any) => product.id === id);
+      return this.invoice.productInvoiceDTOList.some((product:any) => product.id == id);
     }
-  } 
+  }
+
+  /* amount(id:any,refer:any){
+    if(refer == "prom"){
+      const prom = this.invoice.promInvoiceDTOList.some((prom:any) => {prom.id == id});
+      console.log(prom);
+      
+      return prom ? prom.amount : null;
+    }else{
+      const product = this.invoice.productInvoiceDTOList.find((product:any) => product.id == id);
+      return product ? product.amount : null;
+    }
+  }  */
 }

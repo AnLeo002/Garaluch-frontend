@@ -27,7 +27,7 @@
               <button mat-raised-button color="warn" class="" (click)="substract(object.id, refer)">
                 -
               </button>
-              <h3 id="amount-btn">Cantidad: {{ invoice.amount }}</h3>
+              <h3 id="amount-btn">Cantidad: {{ amount }}</h3>
               <button mat-raised-button color="primary" class="" (click)="add(object.id, refer)">
                 +
               </button>
@@ -38,7 +38,7 @@
     </mat-card-content>
   </mat-card>
 </section>
-<mat-card class="w80 mt20 center" *ngIf="refer == 'prom'">
+<mat-card class="w80 mt20 center" *ngIf="refer == 'prom' && object">
   <mat-card-content *ngIf="object.productEntities.length > 0">
     <h2 class="text-center p20">Productos que contiene la promoción</h2>
     <ul class="flex-grap">
