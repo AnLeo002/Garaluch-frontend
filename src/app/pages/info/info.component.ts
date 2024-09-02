@@ -81,8 +81,29 @@ export class InfoComponent implements OnInit{
   }
 
   substract(id:any,refer:any){
-    this.invoice.amount--;
-    this.shoppingService.updateShoppingInvoice(this.invoice);
+    if(refer == "prom"){
+      const prom = this.invoice.promInvoiceDTOList.find((prom: any) => prom.id === id);
+
+      if (prom && prom.amount  >= 1) {
+        prom.amount -= 1;
+        this.amount = prom.amount;
+
+        if(this.amount == 0) {
+        this.invoice.promInvoiceDTOList = this.invoice.promInvoiceDTOList.filter((prom:any)=> prom.id != id);
+        }
+      }
+    }else{
+
+      const product = this.invoice.productInvoiceDTOList.find((product: any) => product.id === id);
+      if (product && product.amount > 0) {
+        product.amount -= 1;
+        this.amount = product.amount;
+        if(this.amount == 0){
+        this.invoice.productInvoiceDTOList = this.invoice.productInvoiceDTOList.filter((product:any)=> product.id != id);
+      }
+      }
+    }
+    this.shoppingService.addShoppingInvoice(this.invoice);
   }
 
 
@@ -93,16 +114,4 @@ export class InfoComponent implements OnInit{
       return this.invoice.productInvoiceDTOList.some((product:any) => product.id == id);
     }
   }
-
-  /* amount(id:any,refer:any){
-    if(refer == "prom"){
-      const prom = this.invoice.promInvoiceDTOList.some((prom:any) => {prom.id == id});
-      console.log(prom);
-      
-      return prom ? prom.amount : null;
-    }else{
-      const product = this.invoice.productInvoiceDTOList.find((product:any) => product.id == id);
-      return product ? product.amount : null;
-    }
-  }  */
 }
