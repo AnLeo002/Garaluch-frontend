@@ -16,6 +16,7 @@ export class AddProductComponent implements OnInit {
   product = {
     name: '',
     amount: '',
+    weight:'',
     price: '',
     dayBuying: '',
     description: '',

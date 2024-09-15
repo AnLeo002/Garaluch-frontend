@@ -8,6 +8,7 @@
         </h1>
       </section>
       <table *ngIf="!invoiceEmpty()" class="table text-center p20">
+        
         <!-- <tr *ngFor="let prom of invoice.promInvoiceDTOList">
           <td class="img"><img src="{{ prom.object.url }}" alt="" /></td>
           <td>{{ prom.object.name }}</td>
@@ -22,7 +23,7 @@
         <tr *ngFor="let pro of invoice.productInvoiceDTOList">
           <td class="img"><img src="{{ pro.object.url }}" alt="" /></td>
           <td>{{ pro.object.name }}</td>
-          <td>{{ pro.object.price }}</td>
+          
           <td class="flex">
             <div class="counter flex-center">
               <button class=" count" (click)="updateAmountInvoice(pro.object.id,'product','-')">-</button>
@@ -33,6 +34,8 @@
               <mat-icon color="warn">delete</mat-icon>
             </button>
           </td>
+          <td>${{ pro.object.price }}</td>
+          <hr>
         </tr>
       </table>
     </mat-card-content>

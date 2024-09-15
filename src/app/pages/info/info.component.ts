@@ -28,38 +28,42 @@ export class InfoComponent implements OnInit {
     this.refer = this.router.snapshot.params["refer"];
 
     if (this.refer == "prom") {
-      this.promService.findPromById(this.id).subscribe(
-        (data: any) => {
-          this.object = data;
-        }, error => {
-          Swal.fire("Error al encontrar la promoción", "", "error");
-        }
-      )
-      this.invoice.promInvoiceDTOList.find((prom:any)=>{ //se encarga de que aparezce la cantidad de prom pedida por el cliente
-        if(prom.id == this.id){
-          return this.amount = prom.amount
-        } 
-      });
+      const prom = this.invoice.promInvoiceDTOList.find((prom: any) => prom.object.id == this.id);
+      if (prom) {//Si el prom ya se encuentra en invoice lo carga directamente
+        this.object = prom.object;
+        this.amount = prom.amount;
+        return;
+      } else {//Si no se encuentra registrado en invoice lo trae directamente de base de datos
+        this.promService.findPromById(this.id).subscribe(
+          (data: any) => {
+            this.object = data;
+          }, error => {
+            Swal.fire("Error al encontrar la promoción", "", "error");
+          }
+        )
+      }
     } else {
-      this.productService.findProductById(this.id).subscribe(
-        (data: any) => {
-          this.object = data;
-        }, error => {
-          Swal.fire("Error al encontrar la producto", "", "error");
-        }
-      )
-      this.invoice.productInvoiceDTOList.find((product:any)=>{ //se encarga de que aparezce la cantidad de product pedida por el cliente
-        if(product.id == this.id){
-          return this.amount = product.amount
-        } 
-      });
+      const product = this.invoice.productInvoiceDTOList.find((pro: any) => pro.object.id == this.id);
+      if (product) {//Si el prom ya se encuentra en invoice lo carga directamente
+        this.object = product.object;
+        this.amount = product.amount;
+        return;
+      } else {
+        this.productService.findProductById(this.id).subscribe(
+          (data: any) => {
+            this.object = data;
+          }, error => {
+            Swal.fire("Error al encontrar la producto", "", "error");
+          }
+        )
+      }
     }
 
   }
 
   add(id: any, refer: any) {
     let objectAmount = {//Este objeto sera el encargado de guardar el id y la cantidad del producto o promocion que se almacenará en la factura
-      object:this.object, 
+      object: this.object,
       amount: 1
     }
     if (this.amount >= this.object.amount || this.object.amount == 0) {
