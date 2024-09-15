@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InvoiceService } from '../../../services/invoice.service';
 import { ShoppingService } from '../../../services/shopping.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -8,7 +9,7 @@ import { ShoppingService } from '../../../services/shopping.service';
   styleUrl: './shopping-cart.component.css'
 })
 export class ShoppingCartComponent implements OnInit {
-  invoice:any; /* = {
+  invoice: any; /* = {
     username: 'britney',
     total: 0, payment: false,
     promInvoiceDTOList:[] ,
@@ -64,22 +65,44 @@ export class ShoppingCartComponent implements OnInit {
     }
     return false;
   }
-
-  add(id:number,refer:string){
-    if(refer == "prom"){
-      const addProm = this.invoice.promInvoiceDTOList.find((prom:any) => prom.object.id == id)
-      ++addProm.amount;
+  updateAmountInvoice(id: number, refer: string, operation: "-" | "+") {
+    if (refer == "prom") {
+      const addProm = this.invoice.promInvoiceDTOList.find((prom: any) => prom.object.id == id);
+      this.haddlerUpdateItem(addProm,operation);
+    } else {
+      const addProduct = this.invoice.productInvoiceDTOList.find((prom: any) => prom.object.id == id);
+      this.haddlerUpdateItem(addProduct,operation);
     }
-    const addProduct = this.invoice.productInvoiceDTOList.find((prom:any) => prom.object.id == id)
-      ++addProduct.amount;      
   }
-  substract(id:number,refer:string){
-    if(refer == "prom"){
-      const subProm = this.invoice.promInvoiceDTOList.find((prom:any) => prom.object.id == id)
+  haddlerUpdateItem(pro: any, operation: "-" | "+") {
+    if (pro) {
+      if (operation == "+") {
+        if (pro.amount >= pro.object.amount) {
+          Swal.fire("Sin existencias en stock.", "", "warning")
+          return;
+        }
+        ++pro.amount;
+      } else {
+        if (pro.amount <= 1) {
+          Swal.fire("No es posible pedir una cantidad menor a 1", "", "warning")
+          return;
+        }
+        --pro.amount;
+      }
+      this.shoppingCart.updateShoppingInvoice(this.invoice);
+    } else{
+      Swal.fire("Error en base de datos", "", "error");
+    }
+  }
+  substract(id: number, refer: string) {
+    if (refer == "prom") {
+      const subProm = this.invoice.promInvoiceDTOList.find((prom: any) => prom.object.id == id)
       --subProm.amount;
     }
-    const subProduct = this.invoice.productInvoiceDTOList.find((prom:any) => prom.object.id == id)
-      --subProduct.amount;      
+    const subProduct = this.invoice.productInvoiceDTOList.find((prom: any) => prom.object.id == id)
+    --subProduct.amount;
   }
+
+
 
 }

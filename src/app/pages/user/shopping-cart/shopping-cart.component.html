@@ -25,9 +25,9 @@
           <td>{{ pro.object.price }}</td>
           <td class="flex">
             <div class="counter flex-center">
-              <button class=" count" (click)="substract(pro.object.id,'product')">-</button>
+              <button class=" count" (click)="updateAmountInvoice(pro.object.id,'product','-')">-</button>
               <h3 class="amount">{{ pro.amount }}</h3>
-              <button class="count" (click)="add(pro.object.id,'product')">+</button>
+              <button class="count" (click)="updateAmountInvoice(pro.object.id,'product','+')">+</button>
             </div>
             <button color="warn" class="delete">
               <mat-icon color="warn">delete</mat-icon>
