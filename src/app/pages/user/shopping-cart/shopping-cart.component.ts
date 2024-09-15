@@ -55,8 +55,24 @@ export class ShoppingCartComponent implements OnInit {
 
   }
 
-  deleteElement(id: any, string: string) {
-
+  deleteElement(id: any,refer:"prom" | "product") {
+    Swal.fire({
+      text:"Estas seguro de eliminar este producto?",
+      showCancelButton:true,
+      cancelButtonText:"Cancelar",
+      confirmButtonText:"Confirmar",
+      icon:"warning"
+    }).then(result=>{
+      if(result.isConfirmed){
+        if(refer == "prom"){
+          this.invoice.promInvoiceDTOList = this.invoice.promInvoiceDTOList.filter((prom:any) => prom.object.id != id);
+          return;
+        }
+        this.invoice.productInvoiceDTOList = this.invoice.productInvoiceDTOList.filter((product:any) => product.object.id != id);
+        this.shoppingCart.updateShoppingInvoice(this.invoice);
+        this.shoppingCart.updateAmountShopping(this.invoice.productInvoiceDTOList.length + this.invoice.promInvoiceDTOList.length);
+      }
+    })
   }
 
   invoiceEmpty() {
@@ -94,15 +110,4 @@ export class ShoppingCartComponent implements OnInit {
       Swal.fire("Error en base de datos", "", "error");
     }
   }
-  substract(id: number, refer: string) {
-    if (refer == "prom") {
-      const subProm = this.invoice.promInvoiceDTOList.find((prom: any) => prom.object.id == id)
-      --subProm.amount;
-    }
-    const subProduct = this.invoice.productInvoiceDTOList.find((prom: any) => prom.object.id == id)
-    --subProduct.amount;
-  }
-
-
-
 }

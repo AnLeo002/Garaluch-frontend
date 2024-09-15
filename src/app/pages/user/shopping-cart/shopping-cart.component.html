@@ -29,7 +29,7 @@
               <h3 class="amount">{{ pro.amount }}</h3>
               <button class="count" (click)="updateAmountInvoice(pro.object.id,'product','+')">+</button>
             </div>
-            <button color="warn" class="delete">
+            <button color="warn" class="delete" (click)="deleteElement(pro.object.id,'product')">
               <mat-icon color="warn">delete</mat-icon>
             </button>
           </td>
