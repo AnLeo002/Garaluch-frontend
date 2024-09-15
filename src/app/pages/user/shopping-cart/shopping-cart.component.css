@@ -42,7 +42,10 @@ img{
 }
 hr{
   margin: 10px 0;
-  width: 100%;
+}
+h5{
+  font-weight: 900;
+  font-size: 17px;
 }
 .invi{
   opacity: 0.5;

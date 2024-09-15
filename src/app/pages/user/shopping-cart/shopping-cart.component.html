@@ -1,6 +1,7 @@
 <div class="flex">
-  <mat-card class="w50">
+  <mat-card class="w60">
     <h1 class="text-center p20">Carrito de compras</h1>
+    <hr>
     <mat-card-content class="column">
       <section *ngIf="invoiceEmpty()" class="flex-center message">
         <h1>
@@ -9,21 +10,27 @@
       </section>
       <table *ngIf="!invoiceEmpty()" class="table text-center p20">
         
-        <!-- <tr *ngFor="let prom of invoice.promInvoiceDTOList">
-          <td class="img"><img src="{{ prom.object.url }}" alt="" /></td>
-          <td>{{ prom.object.name }}</td>
-          <td>{{ prom.amount }}</td>
-          <td>{{ prom.object.price }}</td>
-          <td>
-            <button mat-raised-button color="warn">
-              <mat-icon>delete</mat-icon>
+        <tr *ngFor="let pro of invoice.promInvoiceDTOList">
+          <td class="img"><img src="{{ pro.object.url }}" alt="" /></td>
+          <td><h5>{{ pro.object.name }}</h5></td>
+          <td>Precio unidad: <h5>${{pro.object.price}}</h5></td>
+          <td class="flex">
+            <div class="counter flex-center">
+              <button class=" count" (click)="updateAmountInvoice(pro.object.id,'prom','-')">-</button>
+              <h3 class="amount">{{ pro.amount }}</h3>
+              <button class="count" (click)="updateAmountInvoice(pro.object.id,'prom','+')">+</button>
+            </div>
+            <button color="warn" class="delete" (click)="deleteElement(pro.object.id,'prom')">
+              <mat-icon color="warn">delete</mat-icon>
             </button>
           </td>
-        </tr> -->
+          <td>Total: <h5>${{pro.object.price*pro.amount}}</h5></td>
+          <hr>
+        </tr>
         <tr *ngFor="let pro of invoice.productInvoiceDTOList">
           <td class="img"><img src="{{ pro.object.url }}" alt="" /></td>
-          <td>{{ pro.object.name }}</td>
-          
+          <td><h5>{{pro.object.name}}</h5></td>
+          <td>Precio unidad: <h5>${{pro.object.price}}</h5></td>
           <td class="flex">
             <div class="counter flex-center">
               <button class=" count" (click)="updateAmountInvoice(pro.object.id,'product','-')">-</button>
@@ -34,7 +41,7 @@
               <mat-icon color="warn">delete</mat-icon>
             </button>
           </td>
-          <td>${{ pro.object.price }}</td>
+          <td>Total: <h5>${{pro.object.price*pro.amount}}</h5></td>
           <hr>
         </tr>
       </table>
@@ -48,8 +55,8 @@
         Aquí verás los importes de tu compra una vez que agregues productos.
       </h4>
       <div *ngIf="!invoiceEmpty()">
-        <!-- <h3>Productos:{{invoice.amount}}</h3>
-        <h3>Total:{{invoice.amount}}</h3> -->
+        <h3>Productos:{{amountTotal}}</h3>
+        <h3>Total:{{invoice.total}}</h3>
         <button mat-raised-button color="primary">
           Continuar con la compra
         </button>

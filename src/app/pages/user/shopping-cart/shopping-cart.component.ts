@@ -9,50 +9,17 @@ import Swal from 'sweetalert2';
   styleUrl: './shopping-cart.component.css'
 })
 export class ShoppingCartComponent implements OnInit {
-  invoice: any; /* = {
-    username: 'britney',
-    total: 0, payment: false,
-    promInvoiceDTOList:[] ,
-    productInvoiceDTOList: [{
-      amount
-        :
-        2,
-      object
-        : {
-        amount
-          :
-          12,
-        category
-          :
-          "Pasabocas",
-        dayBuying
-          :
-          "2024-06-12",
-        description
-          :
-          "Papas de pollo superricas",
-        id
-          :
-          10,
-        name
-          :
-          "papas superricas",
-        price
-          :
-          2000,
-        url
-          :
-          "https://supermercadocomunal.com/47582-large_default/papas-super-ricas-pollo-25-gr.jpg"
-      }
-    }]
-  } */
-
+  invoice: any;
   amountProduct: number = 0;
+  amountTotal:number = 0;
 
   constructor(private invoiceService: InvoiceService, private shoppingCart: ShoppingService) { }
   ngOnInit(): void {
     this.invoice = this.shoppingCart.getShoppingInvoice();
-
+    this.shoppingCart.currentData.subscribe(data =>{
+      this.amountTotal = data;
+    })
+    this.addTotalPrice();
   }
 
   deleteElement(id: any,refer:"prom" | "product") {
@@ -71,6 +38,7 @@ export class ShoppingCartComponent implements OnInit {
         this.invoice.productInvoiceDTOList = this.invoice.productInvoiceDTOList.filter((product:any) => product.object.id != id);
         this.shoppingCart.updateShoppingInvoice(this.invoice);
         this.shoppingCart.updateAmountShopping(this.invoice.productInvoiceDTOList.length + this.invoice.promInvoiceDTOList.length);
+        this.addTotalPrice();
       }
     })
   }
@@ -89,6 +57,7 @@ export class ShoppingCartComponent implements OnInit {
       const addProduct = this.invoice.productInvoiceDTOList.find((prom: any) => prom.object.id == id);
       this.haddlerUpdateItem(addProduct,operation);
     }
+    this.addTotalPrice();
   }
   haddlerUpdateItem(pro: any, operation: "-" | "+") {
     if (pro) {
@@ -109,5 +78,13 @@ export class ShoppingCartComponent implements OnInit {
     } else{
       Swal.fire("Error en base de datos", "", "error");
     }
+  }
+  addTotalPrice(){
+    //Este metodo va a sumar el total del precio de los productos
+    this.invoice.total = this.invoice.productInvoiceDTOList.reduce((acc: number, product: any) => {
+      return acc + (product.object.price * product.amount);
+    }, 0) + this.invoice.promInvoiceDTOList.reduce((acc: number, prom: any) => {
+      return acc + (prom.object.price * prom.amount);
+    }, 0);
   }
 }
