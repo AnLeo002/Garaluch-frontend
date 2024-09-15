@@ -1,24 +1,58 @@
-<mat-card>
-  <h1 class="text-center p20">Carrito de compras</h1>
-  <mat-card-content class="column">
-    <section *ngIf="invoice" class="flex-center message">
-      <h1 >No existen registros hasta el momento</h1>
-    </section>
-    <table *ngIf="!invoice" class="table text-center p20">
-      <tr>
-        <td><b>Nombre del producto</b></td>
-        <td><b>Cantidad</b></td>
-        <td></td>
-      </tr>
-        <tr *ngFor="let i of invoiceProm" >
-          <td>{{i.promName}}</td>
-          <td>{{i.promAmount}}</td>
+<div class="flex">
+  <mat-card class="w50">
+    <h1 class="text-center p20">Carrito de compras</h1>
+    <mat-card-content class="column">
+      <section *ngIf="invoiceEmpty()" class="flex-center message">
+        <h1>
+          El <span><mat-icon>shopping_cart</mat-icon></span> se encuentra vacío
+        </h1>
+      </section>
+      <table *ngIf="!invoiceEmpty()" class="table text-center p20">
+        <!-- <tr *ngFor="let prom of invoice.promInvoiceDTOList">
+          <td class="img"><img src="{{ prom.object.url }}" alt="" /></td>
+          <td>{{ prom.object.name }}</td>
+          <td>{{ prom.amount }}</td>
+          <td>{{ prom.object.price }}</td>
           <td>
-            <!-- <button mat-raised-button color="primary" class="mr20" [routerLink]="'/admin/update-category/'+c.id">Actualizar</button>
-            <button mat-raised-button color="warn" (click)="deleteElement(c.id,'la categoria')" >Eliminar</button> -->
+            <button mat-raised-button color="warn">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr> -->
+        <tr *ngFor="let pro of invoice.productInvoiceDTOList">
+          <td class="img"><img src="{{ pro.object.url }}" alt="" /></td>
+          <td>{{ pro.object.name }}</td>
+          <td>{{ pro.object.price }}</td>
+          <td class="flex">
+            <div class="counter flex-center">
+              <button class=" count" (click)="substract(pro.object.id,'product')">-</button>
+              <h3 class="amount">{{ pro.amount }}</h3>
+              <button class="count" (click)="add(pro.object.id,'product')">+</button>
+            </div>
+            <button color="warn" class="delete">
+              <mat-icon color="warn">delete</mat-icon>
+            </button>
           </td>
         </tr>
-    </table>
-  </mat-card-content>
-</mat-card>
+      </table>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="w30 info">
+    <mat-card-content>
+      <h2>Resumen de compra</h2>
+      <hr />
+      <h4 *ngIf="invoiceEmpty()" class="invi">
+        Aquí verás los importes de tu compra una vez que agregues productos.
+      </h4>
+      <div *ngIf="!invoiceEmpty()">
+        <!-- <h3>Productos:{{invoice.amount}}</h3>
+        <h3>Total:{{invoice.amount}}</h3> -->
+        <button mat-raised-button color="primary">
+          Continuar con la compra
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
 <app-footer></app-footer>

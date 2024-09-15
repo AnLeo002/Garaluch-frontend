@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit{
     promInvoiceDTOList:[],
     productInvoiceDTOList:[]     
 }
+ amountShopping:any;
 
   constructor(public login:LoginService,private shoppingService:ShoppingService){}
 
@@ -34,12 +35,18 @@ export class NavbarComponent implements OnInit{
             //Se creara una factura vacia al momento de que el usuario se loguee
             this.invoice.username=this.login.getUser().username;
             this.shoppingService.addShoppingInvoice(this.invoice);
+
+            this.invoice = this.shoppingService.getShoppingInvoice();
+            
+            this.shoppingService.currentData.subscribe(data =>{
+              this.amountShopping = data;
+            })            
           }else{
             this.role = "admin";
           }
           setTimeout(()=>{
             Swal.fire("El tiempo de sesión culminó","Vuelva a ingresar","info");
-            this.login.logOut();
+            return this.login.logOut();
           },1800000);
       
     }

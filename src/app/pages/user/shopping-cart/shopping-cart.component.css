@@ -1,0 +1,51 @@
+mat-card{
+  margin: 20px;
+}
+.info{
+  padding: 20px;
+  height: 50%;
+}
+.counter{
+  border: 2px solid #d4d4d4;
+  border-radius: 5px;
+  margin: 21px;
+}
+.count{
+  background: #ffffff;
+  border: none;
+  padding: 2px 15px;
+  color: #a8ccff;
+  font-size: 25px;
+  transition: 200ms;
+}
+.count:hover{
+  background-color: #0e67e4;
+  color: #ffffff;
+  cursor: pointer;
+}
+.amount{
+  padding: 2px 10px;
+}
+
+.delete{
+  background: rgba(255, 255, 255, 0);
+  border: none;
+  transition: 300ms;
+}
+.delete:hover{
+  scale: 1.2;
+  cursor: pointer;
+}
+img{
+  height: 60px;
+  width: 60px;
+}
+hr{
+  margin: 10px 0;
+}
+.invi{
+  opacity: 0.5;
+}
+.flex{
+  justify-content: center;
+}

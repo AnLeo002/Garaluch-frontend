@@ -44,3 +44,6 @@ mat-sidenav{
 button mat-icon{
   margin-right: 5px;
 }
+.amount{
+  margin-left: -6px;
+}
