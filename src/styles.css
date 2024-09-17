@@ -1,4 +1,8 @@
-html, body { height: 100vh; }
+html, body { 
+  margin: 0; 
+  padding: 0;
+  box-sizing: border-box; 
+}
 *{ margin: 0px;
    font-family:"Ubuntu Sans", sans-serif;
   font-weight: 500;}

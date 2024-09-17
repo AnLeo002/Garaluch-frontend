@@ -1,3 +1,10 @@
+mat-toolbar{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
 .logo{
   height: 70px;
   margin: auto 30px;

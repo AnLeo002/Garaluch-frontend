@@ -10,8 +10,8 @@ import Swal from 'sweetalert2';
 })
 export class ShoppingCartComponent implements OnInit {
   invoice: any;
-  amountProduct: number = 0;
   amountTotal:number = 0;
+  totalPro:number = 0;
 
   constructor(private invoiceService: InvoiceService, private shoppingCart: ShoppingService) { }
   ngOnInit(): void {
@@ -33,9 +33,9 @@ export class ShoppingCartComponent implements OnInit {
       if(result.isConfirmed){
         if(refer == "prom"){
           this.invoice.promInvoiceDTOList = this.invoice.promInvoiceDTOList.filter((prom:any) => prom.object.id != id);
-          return;
+        }else{
+          this.invoice.productInvoiceDTOList = this.invoice.productInvoiceDTOList.filter((product:any) => product.object.id != id);
         }
-        this.invoice.productInvoiceDTOList = this.invoice.productInvoiceDTOList.filter((product:any) => product.object.id != id);
         this.shoppingCart.updateShoppingInvoice(this.invoice);
         this.shoppingCart.updateAmountShopping(this.invoice.productInvoiceDTOList.length + this.invoice.promInvoiceDTOList.length);
         this.addTotalPrice();
@@ -86,5 +86,10 @@ export class ShoppingCartComponent implements OnInit {
     }, 0) + this.invoice.promInvoiceDTOList.reduce((acc: number, prom: any) => {
       return acc + (prom.object.price * prom.amount);
     }, 0);
+    this.totalPro = this.invoice.productInvoiceDTOList.reduce((acc:number,product:any)=>{
+      return acc + product.amount;
+    },0)+this.invoice.promInvoiceDTOList.reduce((acc:number,prom:any)=>{
+      return acc+prom.amount;
+    },0)
   }
 }

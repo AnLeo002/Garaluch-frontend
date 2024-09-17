@@ -26,7 +26,6 @@ mat-card{
 .amount{
   padding: 2px 10px;
 }
-
 .delete{
   background: rgba(255, 255, 255, 0);
   border: none;
@@ -47,9 +46,21 @@ h5{
   font-weight: 900;
   font-size: 17px;
 }
+h4{
+  margin: 10px 0;
+}
+span{
+  font-weight: 900;
+}
 .invi{
   opacity: 0.5;
 }
 .flex{
   justify-content: center;
+}
+.overview{
+  padding: 20px;
+}
+app-footer{
+  bottom: 0px;
 }

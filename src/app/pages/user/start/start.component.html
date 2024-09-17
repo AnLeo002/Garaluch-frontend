@@ -1,26 +1,34 @@
-<mat-card class="m20">
-  <mat-card-content>
-    <h1 class="text-center">Promociones</h1>
-    <ul class="flex-grap">
-      <li class="prom column" *ngFor="let prom of promList" [routerLink]="'/user/info/'+prom.id+'/prom'">
-            <img src="{{prom.url}}" alt="">
-            <h3 >{{prom.name}}</h3>
-            <h4 class="price text-center">${{prom.price}}</h4>
-            <hr>
-      </li>
-    </ul>
-  </mat-card-content>
-</mat-card>
+<section class="column m20">
+  <h1 class="text-center">Promociones</h1>
+  <div class="flex-grap">
+    <article
+      class="prom"
+      *ngFor="let prom of promList"
+      [routerLink]="'/user/info/' + prom.id + '/prom'"
+    >
+      <div>
+        <img src="{{ prom.url }}" alt="" class="test-img" />
+        <h3 class="text-center">{{ prom.name }}</h3>
+        <h4 class="price text-center">${{ prom.price }}</h4>
+      </div>
+    </article>
+  </div>
+</section>
+
 <mat-card class="m20">
   <mat-card-content>
     <h1 class="text-center">Productos</h1>
     <ul class="flex-grap">
-      <li class="prom column" *ngFor="let pro of productList" [routerLink]="'/user/info/'+pro.id+'/product'">
-            <img src="{{pro.url}}" alt="">
-            <h3 >{{pro.name}}</h3>
-            <h4 class="des text-center">{{pro.description}}</h4>
-            <h4 class="price">$ {{pro.price}}</h4>
-            <hr>
+      <li
+        class="pro column"
+        *ngFor="let pro of productList"
+        [routerLink]="'/user/info/' + pro.id + '/product'"
+      >
+        <img src="{{ pro.url }}" alt="" />
+        <h3>{{ pro.name }}</h3>
+        <h4 class="des text-center">{{ pro.description }}</h4>
+        <h4 class="price">$ {{ pro.price }}</h4>
+        <hr />
       </li>
     </ul>
   </mat-card-content>

@@ -3,10 +3,11 @@
     <h1 class="text-center p20">Carrito de compras</h1>
     <hr>
     <mat-card-content class="column">
-      <section *ngIf="invoiceEmpty()" class="flex-center message">
-        <h1>
+      <section *ngIf="invoiceEmpty()" class="column message">
+        <h1 class="invi">
           El <span><mat-icon>shopping_cart</mat-icon></span> se encuentra vacío
         </h1>
+        <button mat-raised-button color="primary" class="m20" routerLink="/user/">Descubrir más</button>
       </section>
       <table *ngIf="!invoiceEmpty()" class="table text-center p20">
         
@@ -47,22 +48,25 @@
       </table>
     </mat-card-content>
   </mat-card>
-  <mat-card class="w30 info">
+  <mat-card class="w20 info">
     <mat-card-content>
       <h2>Resumen de compra</h2>
       <hr />
       <h4 *ngIf="invoiceEmpty()" class="invi">
         Aquí verás los importes de tu compra una vez que agregues productos.
       </h4>
-      <div *ngIf="!invoiceEmpty()">
-        <h3>Productos:{{amountTotal}}</h3>
-        <h3>Total:{{invoice.total}}</h3>
-        <button mat-raised-button color="primary">
-          Continuar con la compra
+      <div *ngIf="!invoiceEmpty()" class="overview">
+        <div class="flex-space">
+          <h4><span>Productos : </span></h4><h4>{{totalPro}}</h4>
+        </div>
+        <div class="flex-space">
+          <h4><span>Total : </span></h4><h4>{{invoice.total}}</h4>
+        </div>
+        <button mat-raised-button color="primary" class="w100">
+          Continuar compra
         </button>
       </div>
     </mat-card-content>
   </mat-card>
 </div>
-
 <app-footer></app-footer>
