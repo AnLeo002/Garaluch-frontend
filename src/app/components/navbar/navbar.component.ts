@@ -23,6 +23,7 @@ export class NavbarComponent implements OnInit{
     productInvoiceDTOList:[]     
 }
  amountShopping:any;
+ proSearch:any;
 
   constructor(public login:LoginService,private shoppingService:ShoppingService){}
 
@@ -56,5 +57,8 @@ export class NavbarComponent implements OnInit{
     this.login.logOut();
     window.location.reload();
   }
-  
+  public searchPro(){
+    console.log(this.proSearch);
+    
+  }
 }

@@ -33,6 +33,27 @@ mat-sidenav{
   padding: 100px, 0;
   position: fixed;
 }
+.input{
+  width: 200px;
+  padding: 10px;
+  height: 35px;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  background: #4f4f4f44;
+}
+.input:focus{
+  outline: #4f4f4f44;
+}
+.search{
+  background: #4f4f4f44;
+  border-radius: 0 5px 5px 0;
+  height: 35px;
+  transition: all 200ms;
+}
+.search:hover{
+  background: #fff;
+  cursor: pointer;
+}
 .button-sidenav{
   display: flex;
   align-items: center;

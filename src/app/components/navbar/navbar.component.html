@@ -2,20 +2,27 @@
   <a [routerLink]="'/'">
     <img src="../../../assets/logo.png" alt="logo" class="logo" />
   </a>
-  <nav>
+  <nav class="flex-center">
     <button *ngIf="!login.isLoggedIn()" [routerLink]="'/login'" class="no-di b-m">
       Iniciar sesión
     </button>
     <button *ngIf="!login.isLoggedIn()" [routerLink]="'/signup'" class="no-di b-m">
       Registrarse
     </button>
+    <form class="flex-center" *ngIf="login.isLoggedIn() && role == 'user'">
+      <input [(ngModel)]="proSearch" name="search" type="text" placeholder="Buscar" class="input" (keyup)="searchPro()">
+      <button class="no-di search">
+        <mat-icon>search</mat-icon>
+      </button>
+    </form>
     <button *ngIf="login.isLoggedIn() && role == 'user'" class="no-di b-m" routerLink="/user/shopping-cart">
       <mat-icon>shopping_cart</mat-icon>
       <span *ngIf="amountShopping != 0" class="amount">{{amountShopping}}</span>
     </button>
-    <button *ngIf="login.isLoggedIn()" (click)="logOut()" class="no-di b-m">
+    
+    <!-- <button *ngIf="login.isLoggedIn()" (click)="logOut()" class="no-di b-m">
       Cerrar sesión
-    </button>
+    </button> -->
     <button *ngIf="login.isLoggedIn()" class="no-di b-m" (click)="sidenav.toggle()">
       <mat-icon  *ngIf="!sidenav.opened">menu</mat-icon>
       <mat-icon  *ngIf="sidenav.opened">close</mat-icon>
