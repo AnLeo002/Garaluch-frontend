@@ -27,4 +27,14 @@ export class ProductService {
   public findProductByName(productName:any){
     return this.http.get(`${baseUrl}/product/name/${productName}`)
   }
+  public saveProductsInLocal(products:any){
+    return sessionStorage.setItem("productsList",JSON.stringify(products));
+  }
+  public getProdutsListInLocal(){
+    let pro = sessionStorage.getItem("productsList");
+    if(pro != null){
+      return JSON.parse(pro);
+    }
+    return null;
+  }
 }

@@ -3,63 +3,132 @@
     <img src="../../../assets/logo.png" alt="logo" class="logo" />
   </a>
   <nav class="flex-center">
-    <button *ngIf="!login.isLoggedIn()" [routerLink]="'/login'" class="no-di b-m">
+    <button
+      *ngIf="!login.isLoggedIn()"
+      [routerLink]="'/login'"
+      class="no-di b-m"
+    >
       Iniciar sesión
     </button>
-    <button *ngIf="!login.isLoggedIn()" [routerLink]="'/signup'" class="no-di b-m">
+    <button
+      *ngIf="!login.isLoggedIn()"
+      [routerLink]="'/signup'"
+      class="no-di b-m"
+    >
       Registrarse
     </button>
-    <form class="flex-center" *ngIf="login.isLoggedIn() && role == 'user'">
-      <input [(ngModel)]="proSearch" name="search" type="text" placeholder="Buscar" class="input" (keyup)="searchPro()">
-      <button class="no-di search">
-        <mat-icon>search</mat-icon>
+    <div class="flex-center" *ngIf="login.isLoggedIn() && role == 'user'">
+      <input
+        [(ngModel)]="proSearch"
+        name="search"
+        type="text"
+        placeholder="Buscar"
+        class="input"
+        (keyup)="searchPro()"
+      />
+      <button class="no-di search" *ngIf="!proSearch" >
+        <mat-icon >search</mat-icon>
       </button>
-    </form>
-    <button *ngIf="login.isLoggedIn() && role == 'user'" class="no-di b-m" routerLink="/user/shopping-cart">
+      <button class="no-di search" *ngIf="proSearch" (click)="deleteFindList()">
+        <h2  class="x" >X</h2>
+      </button>
+    </div>
+    <section *ngIf="totalFind.length > 0" class="finder">
+      <article
+        *ngFor="let pro of totalFind"
+        (click)="navigatePro(pro.id)"
+      >
+        <div class="flex proFind">
+          <img src="{{ pro.url }}" alt="" />
+          <div class="infoFind">
+            <h5>{{ pro.name }}</h5>
+            <h6>${{ pro.price }}</h6>
+          </div>
+        </div>
+        <hr />
+      </article>
+    </section>
+    <button
+      *ngIf="login.isLoggedIn() && role == 'user'"
+      class="no-di b-m"
+      routerLink="/user/shopping-cart"
+    >
       <mat-icon>shopping_cart</mat-icon>
-      <span *ngIf="amountShopping != 0" class="amount">{{amountShopping}}</span>
+      <span *ngIf="amountShopping != 0" class="amount">{{
+        amountShopping
+      }}</span>
     </button>
-    
+
     <!-- <button *ngIf="login.isLoggedIn()" (click)="logOut()" class="no-di b-m">
       Cerrar sesión
     </button> -->
-    <button *ngIf="login.isLoggedIn()" class="no-di b-m" (click)="sidenav.toggle()">
-      <mat-icon  *ngIf="!sidenav.opened">menu</mat-icon>
-      <mat-icon  *ngIf="sidenav.opened">close</mat-icon>
+    <button
+      *ngIf="login.isLoggedIn()"
+      class="no-di b-m"
+      (click)="sidenav.toggle()"
+    >
+      <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+      <mat-icon *ngIf="sidenav.opened">close</mat-icon>
     </button>
   </nav>
 </mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav>
     <nav class="column">
-      <button [routerLink]="role+'/'" class="no-di button-sidenav"><mat-icon>home</mat-icon>
-      Home
+      <button [routerLink]="role + '/'" class="no-di button-sidenav">
+        <mat-icon>home</mat-icon>
+        Home
       </button>
-      <button [routerLink]="role+'/profile'" class="no-di button-sidenav"><mat-icon>account_circle</mat-icon>
+      <button [routerLink]="role + '/profile'" class="no-di button-sidenav">
+        <mat-icon>account_circle</mat-icon>
         Perfil
       </button>
-      
-      <button class="no-di button-sidenav" *ngIf="role && role == 'admin'" [routerLink]="role+'/add-product'">
+
+      <button
+        class="no-di button-sidenav"
+        *ngIf="role && role == 'admin'"
+        [routerLink]="role + '/add-product'"
+      >
         <mat-icon>add</mat-icon>
         Agregar productos
       </button>
-      <button class="no-di button-sidenav" *ngIf="role && role == 'admin'" [routerLink]="role+'/products'">
+      <button
+        class="no-di button-sidenav"
+        *ngIf="role && role == 'admin'"
+        [routerLink]="role + '/products'"
+      >
         <mat-icon>list</mat-icon>
         Productos
       </button>
-      <button class="no-di button-sidenav" *ngIf="role && role == 'admin'" [routerLink]="role+'/add-category'">
+      <button
+        class="no-di button-sidenav"
+        *ngIf="role && role == 'admin'"
+        [routerLink]="role + '/add-category'"
+      >
         <mat-icon>add</mat-icon>
         Agregar categoria
       </button>
-      <button class="no-di button-sidenav" *ngIf="role && role == 'admin'" [routerLink]="role+'/categories'">
+      <button
+        class="no-di button-sidenav"
+        *ngIf="role && role == 'admin'"
+        [routerLink]="role + '/categories'"
+      >
         <mat-icon>list</mat-icon>
         Categorias
       </button>
-      <button class="no-di button-sidenav" *ngIf="role && role == 'admin'" [routerLink]="role+'/add-prom'">
+      <button
+        class="no-di button-sidenav"
+        *ngIf="role && role == 'admin'"
+        [routerLink]="role + '/add-prom'"
+      >
         <mat-icon>add</mat-icon>
         Agregar promociones
       </button>
-      <button class="no-di button-sidenav" *ngIf="role && role == 'admin'" [routerLink]="role+'/proms'">
+      <button
+        class="no-di button-sidenav"
+        *ngIf="role && role == 'admin'"
+        [routerLink]="role + '/proms'"
+      >
         <mat-icon>list</mat-icon>
         Promociones
       </button>
@@ -79,6 +148,6 @@
     </nav>
   </mat-sidenav>
   <mat-sidenav-content>
-      <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

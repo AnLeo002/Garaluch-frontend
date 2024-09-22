@@ -39,7 +39,7 @@
   </mat-card>
 </section>
 <mat-card class="w80 mt20 center" *ngIf="refer == 'prom' && object">
-  <mat-card-content *ngIf="object.productEntities.length > 0">
+  <mat-card-content *ngIf="object?.productEntities?.length > 0">
     <h2 class="text-center p20">Productos que contiene la promoción</h2>
     <ul class="flex-grap">
       <li class="prom column" *ngFor="let pro of object.productEntities"

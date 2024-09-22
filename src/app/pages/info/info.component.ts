@@ -24,41 +24,44 @@ export class InfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.invoice = this.shoppingService.getShoppingInvoice();
-    this.id = this.router.snapshot.params["id"];
-    this.refer = this.router.snapshot.params["refer"];
 
-    if (this.refer == "prom") {
-      const prom = this.invoice.promInvoiceDTOList.find((prom: any) => prom.object.id == this.id);
-      if (prom) {//Si el prom ya se encuentra en invoice lo carga directamente
-        this.object = prom.object;
-        this.amount = prom.amount;
-        return;
-      } else {//Si no se encuentra registrado en invoice lo trae directamente de base de datos
-        this.promService.findPromById(this.id).subscribe(
-          (data: any) => {
-            this.object = data;
-          }, error => {
-            Swal.fire("Error al encontrar la promoción", "", "error");
-          }
-        )
-      }
-    } else {
-      const product = this.invoice.productInvoiceDTOList.find((pro: any) => pro.object.id == this.id);
-      if (product) {//Si el prom ya se encuentra en invoice lo carga directamente
-        this.object = product.object;
-        this.amount = product.amount;
-        return;
+    this.router.params.subscribe(params => {//Usamos el activatedRoute y nos suscribimos, para que al momento de cambiar los parametros enviados por la url,el componente actualice sus datos(el producto o promoción)
+      this.id = params['id'];
+      this.refer = params['refer'];
+
+      if (this.refer == "prom") {
+        const prom = this.invoice.promInvoiceDTOList.find((prom: any) => prom.object.id == this.id);
+        if (prom) {//Si el prom ya se encuentra en invoice lo carga directamente
+          this.object = prom.object;
+          this.amount = prom.amount;
+          return;
+        } else {//Si no se encuentra registrado en invoice lo trae directamente de base de datos
+          this.promService.findPromById(this.id).subscribe(
+            (data: any) => {
+              this.object = data;
+            }, error => {
+              Swal.fire("Error al encontrar la promoción", "", "error");
+            }
+          )
+        }
       } else {
-        this.productService.findProductById(this.id).subscribe(
-          (data: any) => {
-            this.object = data;
-          }, error => {
-            Swal.fire("Error al encontrar la producto", "", "error");
-          }
-        )
+        const product = this.invoice.productInvoiceDTOList.find((pro: any) => pro.object.id == this.id);
+        if (product) {//Si el prom ya se encuentra en invoice lo carga directamente
+          this.object = product.object;
+          this.amount = product.amount;
+          return;
+        } else {
+          this.productService.findProductById(this.id).subscribe(
+            (data: any) => {
+              this.object = data;
+            }, error => {
+              Swal.fire("Error al encontrar la producto", "", "error");
+            }
+          )
+        }
       }
-    }
-
+    })
+    console.log(this.refer);
   }
 
   add(id: any, refer: any) {

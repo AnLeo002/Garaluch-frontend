@@ -103,6 +103,7 @@ const routes: Routes = [{
     },{
       path:'info/:id/:refer',
       component:InfoComponent,
+      runGuardsAndResolvers: 'paramsChange'
     },{
       path:'shopping-cart',
       component:ShoppingCartComponent
