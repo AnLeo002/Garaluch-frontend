@@ -20,8 +20,4 @@ export class HomeComponent implements OnInit{
       }
     )
   }
-
-  info(){
-    window.location.href="/info"
-  }
 }

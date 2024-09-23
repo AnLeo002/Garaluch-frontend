@@ -4,6 +4,7 @@ import { PromService } from '../../services/prom.service';
 import { ProductService } from '../../services/product.service';
 import Swal from 'sweetalert2';
 import { ShoppingService } from '../../services/shopping.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-info',
@@ -18,7 +19,7 @@ export class InfoComponent implements OnInit {
   amount: any;//Guardamos la cantidad que el usuario va a elegir
   invoice: any;
 
-  constructor(private router: ActivatedRoute, private promService: PromService, private productService: ProductService, private shoppingService: ShoppingService) {
+  constructor(private router: ActivatedRoute, private promService: PromService, private productService: ProductService, private shoppingService: ShoppingService, private login: LoginService) {
 
   }
 
@@ -69,31 +70,36 @@ export class InfoComponent implements OnInit {
       object: this.object,
       amount: 1
     }
-    if (this.amount >= this.object.amount || this.object.amount == 0) {
-      Swal.fire("Sin existencias en stock.", "", "warning")
-    } else {
-      if (refer == "prom") {
-        let promFinded: boolean = this.invoice.promInvoiceDTOList.some((prom: any) => prom.object.id == id);
-        if (!promFinded) {//Si el producto o prom no se encuentra en la factura se agrega
-          this.invoice.promInvoiceDTOList.push(objectAmount);
-          this.amount = objectAmount.amount;
-        } else {//Si se encuentra se le agrega o se suma cantidad
-          let promFinded = this.invoice.promInvoiceDTOList.find((prom: any) => prom.object.id == id);
-          this.amount = ++promFinded.amount;
-        }
+    if(this.login.isLoggedIn()){
+      if (this.amount >= this.object.amount || this.object.amount == 0) {
+        Swal.fire("Sin existencias en stock.", "", "warning")
       } else {
-        let productFinded: boolean = this.invoice.productInvoiceDTOList.some((product: any) => product.object.id == id);
-        if (!productFinded) {
-          this.invoice.productInvoiceDTOList.push(objectAmount);
-          this.amount = objectAmount.amount;
+        if (refer == "prom") {
+          let promFinded: boolean = this.invoice.promInvoiceDTOList.some((prom: any) => prom.object.id == id);
+          if (!promFinded) {//Si el producto o prom no se encuentra en la factura se agrega
+            this.invoice.promInvoiceDTOList.push(objectAmount);
+            this.amount = objectAmount.amount;
+          } else {//Si se encuentra se le agrega o se suma cantidad
+            let promFinded = this.invoice.promInvoiceDTOList.find((prom: any) => prom.object.id == id);
+            this.amount = ++promFinded.amount;
+          }
         } else {
-          let product = this.invoice.productInvoiceDTOList.find((prom: any) => prom.object.id == id);
-          this.amount = ++product.amount;
+          let productFinded: boolean = this.invoice.productInvoiceDTOList.some((product: any) => product.object.id == id);
+          if (!productFinded) {
+            this.invoice.productInvoiceDTOList.push(objectAmount);
+            this.amount = objectAmount.amount;
+          } else {
+            let product = this.invoice.productInvoiceDTOList.find((prom: any) => prom.object.id == id);
+            this.amount = ++product.amount;
+          }
         }
+        this.shoppingService.addShoppingInvoice(this.invoice);
+        this.shoppingService.updateAmountShopping(this.invoice.productInvoiceDTOList.length + this.invoice.promInvoiceDTOList.length);
       }
-      this.shoppingService.addShoppingInvoice(this.invoice);
-      this.shoppingService.updateAmountShopping(this.invoice.productInvoiceDTOList.length + this.invoice.promInvoiceDTOList.length);
+    }else{
+      Swal.fire("Inicie sesión para poder generar el pedido","Para poder hacer el pedido debe iniciar sesión o registrarse","warning")
     }
+    
   }
 
   substract(id: any, refer: any) {

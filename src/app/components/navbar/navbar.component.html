@@ -77,7 +77,7 @@
     <nav class="column">
       <button [routerLink]="role + '/'" class="no-di button-sidenav">
         <mat-icon>home</mat-icon>
-        Home
+        Inicio
       </button>
       <button [routerLink]="role + '/profile'" class="no-di button-sidenav">
         <mat-icon>account_circle</mat-icon>
@@ -132,11 +132,11 @@
         <mat-icon>list</mat-icon>
         Promociones
       </button>
-      <button class="no-di button-sidenav" *ngIf="role && role == 'user'">
+      <button class="no-di button-sidenav" *ngIf="role && role == 'user'" [routerLink]="'/user/product'">
         <mat-icon>list</mat-icon>
         Productos
       </button>
-      <button class="no-di button-sidenav" *ngIf="role && role == 'user'">
+      <button class="no-di button-sidenav" *ngIf="role && role == 'user'" [routerLink]="'/user/prom'">
         <mat-icon>list</mat-icon>
         Promociones
       </button>

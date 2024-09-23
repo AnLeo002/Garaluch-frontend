@@ -50,8 +50,9 @@ export class NavbarComponent implements OnInit {
         this.invoice.username = this.login.getUser().username;
         this.shoppingService.addShoppingInvoice(this.invoice);
 
-        this.invoice = this.shoppingService.getShoppingInvoice();
+        /* this.invoice = this.shoppingService.getShoppingInvoice(); */
 
+        //Suscribirse a cambios en los datos de la factura
         this.shoppingService.currentData.subscribe(data => {
           this.amountShopping = data;
         })
@@ -61,7 +62,7 @@ export class NavbarComponent implements OnInit {
       setTimeout(() => {
         Swal.fire("El tiempo de sesión culminó", "Vuelva a ingresar", "info");
         this.login.logOut();
-        return this.router.navigate(["/"])
+        this.router.navigate(["/"])
       }, 1800000);
 
     }

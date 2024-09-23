@@ -89,8 +89,6 @@ export class UpdateInfoComponent implements OnInit {
   }
   public updateInfo(user: any) {
     console.log(user);
-    alert()
-    
     this.userService.updateUser(user, user.id).subscribe(
       (data: any) => {
         this.userLogin = {

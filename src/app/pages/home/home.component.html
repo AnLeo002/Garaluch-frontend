@@ -36,7 +36,7 @@
   <hr>
   <h1 class="text-center">Promociones</h1>
     <ul class="flex-grap">
-      <li class="prom column" *ngFor="let prom of promList" [routerLink]="'/user/info/'+prom.id+'/prom'">
+      <li class="prom column" *ngFor="let prom of promList" [routerLink]="'/info/'+prom.id+'/prom'">
             <img src="{{prom.url}}" alt="">
             <h3 >{{prom.name}}</h3>
             <h4 class="des text-center">{{prom.description}}</h4>

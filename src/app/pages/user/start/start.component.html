@@ -1,4 +1,4 @@
-<section class="column m20">
+<section class="column m20" *ngIf="tipeFilter == undefined || tipeFilter == 'prom'">
   <h1 class="text-center">Promociones</h1>
   <div class="flex-grap">
     <article
@@ -15,7 +15,7 @@
   </div>
 </section>
 
-<mat-card class="m20">
+<mat-card class="m20" *ngIf="tipeFilter == undefined || tipeFilter == 'product'">
   <mat-card-content>
     <h1 class="text-center">Productos</h1>
     <ul class="flex-grap">

@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
       })
       return ;
     }
-    console.log(this.loginData)
     this.loginService.login(this.loginData).subscribe(
       (data:any)=>{
         this.loginService.responseToken(data.jwt);
@@ -45,7 +44,7 @@ export class LoginComponent implements OnInit {
           if(this.loginService.getUserRole() == "ADMIN"){
             window.location.href="/admin";
           }else if(this.loginService.getUserRole() == "TEACH" || this.loginService.getUserRole() == "FATHER"){
-            window.location.href="/user";
+            window.location.href="/user/all";
           }else{
             this.loginService.logOut();
           }

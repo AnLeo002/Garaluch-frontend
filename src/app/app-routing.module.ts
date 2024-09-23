@@ -38,6 +38,10 @@ const routes: Routes = [{
   component:LoginComponent,
   pathMatch:'full'
 },{
+  path:'info/:id/:refer',
+  component:InfoComponent,
+  pathMatch:'full'
+},{
   path:'admin',
   component:DashboardComponent,
   canActivate:[AdminGuard],
@@ -107,6 +111,9 @@ const routes: Routes = [{
     },{
       path:'shopping-cart',
       component:ShoppingCartComponent
+    },{
+      path:':filter',
+      component:StartComponent
     }
   ]
 }];
