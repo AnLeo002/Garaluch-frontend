@@ -10,31 +10,31 @@ import Swal from 'sweetalert2';
 })
 export class ShoppingCartComponent implements OnInit {
   invoice: any;
-  amountTotal:number = 0;
-  totalPro:number = 0;
+  amountTotal: number = 0;
+  totalPro: number = 0;
 
   constructor(private invoiceService: InvoiceService, private shoppingCart: ShoppingService) { }
   ngOnInit(): void {
     this.invoice = this.shoppingCart.getShoppingInvoice();
-    this.shoppingCart.currentData.subscribe(data =>{
+    this.shoppingCart.currentData.subscribe(data => {
       this.amountTotal = data;
     })
     this.addTotalPrice();
   }
 
-  deleteElement(id: any,refer:"prom" | "product") {
+  deleteElement(id: any, refer: "prom" | "product") {
     Swal.fire({
-      text:"Estas seguro de eliminar este producto?",
-      showCancelButton:true,
-      cancelButtonText:"Cancelar",
-      confirmButtonText:"Confirmar",
-      icon:"warning"
-    }).then(result=>{
-      if(result.isConfirmed){
-        if(refer == "prom"){
-          this.invoice.promInvoiceDTOList = this.invoice.promInvoiceDTOList.filter((prom:any) => prom.object.id != id);
-        }else{
-          this.invoice.productInvoiceDTOList = this.invoice.productInvoiceDTOList.filter((product:any) => product.object.id != id);
+      text: "Estas seguro de eliminar este producto?",
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Confirmar",
+      icon: "warning"
+    }).then(result => {
+      if (result.isConfirmed) {
+        if (refer == "prom") {
+          this.invoice.promInvoiceDTOList = this.invoice.promInvoiceDTOList.filter((prom: any) => prom.object.id != id);
+        } else {
+          this.invoice.productInvoiceDTOList = this.invoice.productInvoiceDTOList.filter((product: any) => product.object.id != id);
         }
         this.shoppingCart.updateShoppingInvoice(this.invoice);
         this.shoppingCart.updateAmountShopping(this.invoice.productInvoiceDTOList.length + this.invoice.promInvoiceDTOList.length);
@@ -42,8 +42,7 @@ export class ShoppingCartComponent implements OnInit {
       }
     })
   }
-
-  invoiceEmpty() {
+  invoiceEmpty() {//Activa algunos componentes de html si no hay productos o promociones en el carrito
     if (this.invoice.productInvoiceDTOList.length == 0 && this.invoice.promInvoiceDTOList.length == 0) {
       return true;
     }
@@ -52,14 +51,14 @@ export class ShoppingCartComponent implements OnInit {
   updateAmountInvoice(id: number, refer: string, operation: "-" | "+") {
     if (refer == "prom") {
       const addProm = this.invoice.promInvoiceDTOList.find((prom: any) => prom.object.id == id);
-      this.haddlerUpdateItem(addProm,operation);
+      this.haddlerUpdateItem(addProm, operation);
     } else {
       const addProduct = this.invoice.productInvoiceDTOList.find((prom: any) => prom.object.id == id);
-      this.haddlerUpdateItem(addProduct,operation);
+      this.haddlerUpdateItem(addProduct, operation);
     }
     this.addTotalPrice();
   }
-  haddlerUpdateItem(pro: any, operation: "-" | "+") {
+  haddlerUpdateItem(pro: any, operation: "-" | "+") {//Le da la funcionalidad a los botones de + o - para aumentar la cantidad de productos o promociones
     if (pro) {
       if (operation == "+") {
         if (pro.amount >= pro.object.amount) {
@@ -75,21 +74,52 @@ export class ShoppingCartComponent implements OnInit {
         --pro.amount;
       }
       this.shoppingCart.updateShoppingInvoice(this.invoice);
-    } else{
+    } else {
       Swal.fire("Error en base de datos", "", "error");
     }
   }
-  addTotalPrice(){
+  addTotalPrice() {
     //Este metodo va a sumar el total del precio de los productos
     this.invoice.total = this.invoice.productInvoiceDTOList.reduce((acc: number, product: any) => {
       return acc + (product.object.price * product.amount);
     }, 0) + this.invoice.promInvoiceDTOList.reduce((acc: number, prom: any) => {
       return acc + (prom.object.price * prom.amount);
     }, 0);
-    this.totalPro = this.invoice.productInvoiceDTOList.reduce((acc:number,product:any)=>{
+    this.totalPro = this.invoice.productInvoiceDTOList.reduce((acc: number, product: any) => {
       return acc + product.amount;
-    },0)+this.invoice.promInvoiceDTOList.reduce((acc:number,prom:any)=>{
-      return acc+prom.amount;
-    },0)
+    }, 0) + this.invoice.promInvoiceDTOList.reduce((acc: number, prom: any) => {
+      return acc + prom.amount;
+    }, 0)
   }
+  saveSale() {
+    Swal.fire({
+      title: "Confimacion de compra",
+      text: "¿Seguro quieres seguir con la compra?",
+      cancelButtonText: "Cancelar",
+      showCancelButton: true,
+      confirmButtonText: "Seguir",
+      icon: "info"
+    }).then(result => {
+      if (result.isConfirmed) {
+        const invoiceSave = JSON.parse(JSON.stringify(this.invoice));//Esta manera de copiar el objeto me permite que los cambios que genere en la copia no afecten el contenido original
+
+        this.changeInfoPro(invoiceSave.productInvoiceDTOList)
+        this.changeInfoPro(invoiceSave.promInvoiceDTOList)
+
+        this.invoiceService.saveInvoice(invoiceSave).subscribe((data) => {
+          
+        },error=>{
+          Swal.fire("","No es posible generar la compra","error")
+        });
+      }
+    })
+  }
+  changeInfoPro(item: any) {
+    item.map((pro: any) => {
+      pro.id = pro.object.id;
+      delete pro.object;//Eliminamos esta propiedad ya que para guardar los cambios no lo necesitamos
+    })
+  }
+
+
 }

@@ -19,13 +19,13 @@ export class InvoiceService {
     return this.http.post(`${baseUrl}/invoice/save`,invoice);
   }
   updateInvoice(invoice:any,id:any){
-    return this.http.put(`${baseUrl}/update/${id}`,invoice)
+    return this.http.put(`${baseUrl}/inovice/update/${id}`,invoice)
   }
   deleteInvoice(id:any){
     return this.http.delete(`${baseUrl}/invoice/delete/${id}`);
   }
   updateAmount(invoice:any){
-    return this.http.put(`${baseUrl}/update/amount`,invoice)
+    return this.http.put(`${baseUrl}/invoice/update/amount`,invoice)
 
   }
 }

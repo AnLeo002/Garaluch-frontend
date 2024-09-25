@@ -22,8 +22,7 @@ export class StartComponent implements OnInit{
 
   ngOnInit(): void {
     this.router.params.subscribe(param =>{
-      this.tipeFilter = param['filter'];
-      console.log(this.tipeFilter);
+      this.tipeFilter = param['filter'] || 'all';//si la url viene vacia va poner por defecto el valor all
       
       this.productService.findAll().subscribe(
         (data:any)=>{
@@ -40,8 +39,5 @@ export class StartComponent implements OnInit{
         }
       )
     })
-    
-
   }
-  
 }

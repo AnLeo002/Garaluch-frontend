@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
           if(this.loginService.getUserRole() == "ADMIN"){
             window.location.href="/admin";
           }else if(this.loginService.getUserRole() == "TEACH" || this.loginService.getUserRole() == "FATHER"){
-            window.location.href="/user/all";
+            window.location.href="/user";
           }else{
             this.loginService.logOut();
           }
