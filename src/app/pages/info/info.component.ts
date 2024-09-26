@@ -32,6 +32,8 @@ export class InfoComponent implements OnInit {
 
       if (this.refer == "prom") {
         const prom = this.invoice.promInvoiceDTOList.find((prom: any) => prom.object.id == this.id);
+        console.log(prom );
+        
         if (prom) {//Si el prom ya se encuentra en invoice lo carga directamente
           this.object = prom.object;
           this.amount = prom.amount;
@@ -94,7 +96,7 @@ export class InfoComponent implements OnInit {
           }
         }
         this.shoppingService.addShoppingInvoice(this.invoice);
-        this.shoppingService.updateAmountShopping(this.invoice.productInvoiceDTOList.length + this.invoice.promInvoiceDTOList.length);
+        this.shoppingService.updateAmountShopping(this.invoice);
       }
     }else{
       Swal.fire("Inicie sesión para poder generar el pedido","Para poder hacer el pedido debe iniciar sesión o registrarse","warning")

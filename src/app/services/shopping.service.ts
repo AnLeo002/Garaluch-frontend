@@ -27,8 +27,13 @@ export class ShoppingService {
   deleteShoppingInvoice(){
     localStorage.removeItem("shoppingCartInvoice")
   }
-
-  updateAmountShopping(newData:number){
-    this.amountShopping.next(newData);
+  emptyLists(invoice:any){
+      invoice.productInvoiceDTOList = [];
+      invoice.promInvoiceDTOList = [];
+      this.updateShoppingInvoice(invoice);
+  }
+  updateAmountShopping(invoice:any){
+    const amount:number = invoice.promInvoiceDTOList.length + invoice.productInvoiceDTOList.length;
+    this.amountShopping.next(amount);
   }
 }

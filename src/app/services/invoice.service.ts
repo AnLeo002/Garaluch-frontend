@@ -26,6 +26,6 @@ export class InvoiceService {
   }
   updateAmount(invoice:any){
     return this.http.put(`${baseUrl}/invoice/update/amount`,invoice)
-
   }
+  
 }

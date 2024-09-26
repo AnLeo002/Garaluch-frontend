@@ -3,6 +3,7 @@ import { LoginService } from '../../services/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../../services/user.service';
 import Swal from 'sweetalert2';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -21,7 +22,7 @@ export class SignupComponent implements OnInit{
       roleListName:[""]
     }
   }
-  constructor(private userService:UserService, private snack:MatSnackBar,private loginService:LoginService){}
+  constructor(private userService:UserService, private snack:MatSnackBar,private loginService:LoginService,private router:Router){}
   ngOnInit(): void {
   }
   formSubmit(){
@@ -45,6 +46,7 @@ export class SignupComponent implements OnInit{
         (user)=>{
           this.loginService.setUser(user);
           Swal.fire("Usuario creado","Usuario creado Correctamente","success");
+          this.router.navigate(['/user'])
       })
     },error=>{
       if(error.status == 409){

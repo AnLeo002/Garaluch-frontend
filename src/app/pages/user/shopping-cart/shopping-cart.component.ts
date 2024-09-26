@@ -37,7 +37,7 @@ export class ShoppingCartComponent implements OnInit {
           this.invoice.productInvoiceDTOList = this.invoice.productInvoiceDTOList.filter((product: any) => product.object.id != id);
         }
         this.shoppingCart.updateShoppingInvoice(this.invoice);
-        this.shoppingCart.updateAmountShopping(this.invoice.productInvoiceDTOList.length + this.invoice.promInvoiceDTOList.length);
+        this.shoppingCart.updateAmountShopping(this.invoice);
         this.addTotalPrice();
       }
     })
@@ -103,11 +103,15 @@ export class ShoppingCartComponent implements OnInit {
       if (result.isConfirmed) {
         const invoiceSave = JSON.parse(JSON.stringify(this.invoice));//Esta manera de copiar el objeto me permite que los cambios que genere en la copia no afecten el contenido original
 
-        this.changeInfoPro(invoiceSave.productInvoiceDTOList)
-        this.changeInfoPro(invoiceSave.promInvoiceDTOList)
+        this.changeInfoPro(invoiceSave.productInvoiceDTOList);
+        this.changeInfoPro(invoiceSave.promInvoiceDTOList);
+
+        invoiceSave.payment = true;
 
         this.invoiceService.saveInvoice(invoiceSave).subscribe((data) => {
-          
+          this.shoppingCart.emptyLists(this.invoice);
+          this.shoppingCart.updateAmountShopping(this.invoice)
+          Swal.fire("Compra exitosa","","success")
         },error=>{
           Swal.fire("","No es posible generar la compra","error")
         });

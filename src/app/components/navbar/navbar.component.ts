@@ -90,9 +90,6 @@ export class NavbarComponent implements OnInit {
       this.totalFind = [...this.promList,...this.productList]
     
   }
-  /* console(text: any) {
-    console.log(text)
-  } */
   deleteFindList() {
     this.proSearch = '';
     this.totalFind = [];
