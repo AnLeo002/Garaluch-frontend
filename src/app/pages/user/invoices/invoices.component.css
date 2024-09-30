@@ -1,0 +1,19 @@
+mat-card{
+  margin: 10px auto;
+  width: 80%;
+}
+h1{
+  padding: 20px;
+}
+h2{
+  color: #585858;
+}
+.invoice{
+  transition: all 100ms;
+}
+.invoice:hover{
+  background: #585858;
+  color: #fff;
+  cursor: pointer;
+  scale: 1.05;
+}

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InvoiceService } from '../../../services/invoice.service';
 import { ShoppingService } from '../../../services/shopping.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -13,7 +14,7 @@ export class ShoppingCartComponent implements OnInit {
   amountTotal: number = 0;
   totalPro: number = 0;
 
-  constructor(private invoiceService: InvoiceService, private shoppingCart: ShoppingService) { }
+  constructor(private invoiceService: InvoiceService, private shoppingCart: ShoppingService,private router:Router) { }
   ngOnInit(): void {
     this.invoice = this.shoppingCart.getShoppingInvoice();
     this.shoppingCart.currentData.subscribe(data => {
@@ -45,11 +46,11 @@ export class ShoppingCartComponent implements OnInit {
   invoiceEmpty() {//Activa algunos componentes de html si no hay productos o promociones en el carrito
     if (this.invoice.productInvoiceDTOList.length == 0 && this.invoice.promInvoiceDTOList.length == 0) {
       return true;
-    }
+    }    
     return false;
   }
   updateAmountInvoice(id: number, refer: string, operation: "-" | "+") {
-    if (refer == "prom") {
+    if (refer == "prom") {//Metodo que permite actualizar la cantidad especifica a cada producto o prom
       const addProm = this.invoice.promInvoiceDTOList.find((prom: any) => prom.object.id == id);
       this.haddlerUpdateItem(addProm, operation);
     } else {
@@ -85,6 +86,7 @@ export class ShoppingCartComponent implements OnInit {
     }, 0) + this.invoice.promInvoiceDTOList.reduce((acc: number, prom: any) => {
       return acc + (prom.object.price * prom.amount);
     }, 0);
+    //Verifica la cantidad total de productos y promociones
     this.totalPro = this.invoice.productInvoiceDTOList.reduce((acc: number, product: any) => {
       return acc + product.amount;
     }, 0) + this.invoice.promInvoiceDTOList.reduce((acc: number, prom: any) => {
@@ -109,8 +111,9 @@ export class ShoppingCartComponent implements OnInit {
         invoiceSave.payment = true;
 
         this.invoiceService.saveInvoice(invoiceSave).subscribe((data) => {
-          this.shoppingCart.emptyLists(this.invoice);
-          this.shoppingCart.updateAmountShopping(this.invoice)
+          this.shoppingCart.emptyLists(invoiceSave);//Se borra el listado de las pro ya que la factura ya se genero
+          this.shoppingCart.updateAmountShopping(invoiceSave)//Actualizamos el numero en el carrito
+          this.router.navigate(['/user/invoices'])
           Swal.fire("Compra exitosa","","success")
         },error=>{
           Swal.fire("","No es posible generar la compra","error")
@@ -118,7 +121,7 @@ export class ShoppingCartComponent implements OnInit {
       }
     })
   }
-  changeInfoPro(item: any) {
+  changeInfoPro(item: any) {//Al backend solo enviaremos el id del pro y su cantidad, el objeto no nos sirve para ser enviado, por eso lo eliminamos
     item.map((pro: any) => {
       pro.id = pro.object.id;
       delete pro.object;//Eliminamos esta propiedad ya que para guardar los cambios no lo necesitamos

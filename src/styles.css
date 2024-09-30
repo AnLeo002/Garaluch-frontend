@@ -27,9 +27,9 @@ html, body {
   justify-content: center !important;
 }
 .flex-around{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  display: flex !important;
+  justify-content: space-around !important;
+  align-items: center !important;
 }
 .flex-center{
   display: flex !important;
@@ -105,7 +105,6 @@ html, body {
 .table{
   width: 100%;
   border-collapse: collapse;
-  margin: 10px;
 }
 .table tr td{
   padding: 15px 10px;

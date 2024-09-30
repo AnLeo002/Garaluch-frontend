@@ -50,6 +50,8 @@ import { UpdatePromComponent } from './pages/admin/update-prom/update-prom.compo
 import { AddProductsPromComponent } from './pages/admin/add-products-prom/add-products-prom.component';
 import { ProductsPromComponent } from './pages/admin/products-prom/products-prom.component';
 import { ShoppingCartComponent } from './pages/user/shopping-cart/shopping-cart.component';
+import { ViewInvoiceComponent } from './pages/user/view-invoice/view-invoice.component';
+import { InvoicesComponent } from './pages/user/invoices/invoices.component';
 
 
 @NgModule({
@@ -78,7 +80,9 @@ import { ShoppingCartComponent } from './pages/user/shopping-cart/shopping-cart.
     UpdatePromComponent,
     AddProductsPromComponent,
     ProductsPromComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    ViewInvoiceComponent,
+    InvoicesComponent
   ],
   imports: [
     BrowserModule,

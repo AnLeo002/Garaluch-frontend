@@ -140,6 +140,10 @@
         <mat-icon>list</mat-icon>
         Promociones
       </button>
+      <button class="no-di button-sidenav" *ngIf="role && role == 'user'" [routerLink]="'/user/invoices'">
+        <mat-icon>history</mat-icon>
+        Historial de compra
+      </button>
 
       <button (click)="logOut()" class="no-di button-sidenav">
         <mat-icon>logout</mat-icon>

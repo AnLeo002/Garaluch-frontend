@@ -24,6 +24,8 @@ import { UpdatePromComponent } from './pages/admin/update-prom/update-prom.compo
 import { AddProductsPromComponent } from './pages/admin/add-products-prom/add-products-prom.component';
 import { ProductsPromComponent } from './pages/admin/products-prom/products-prom.component';
 import { ShoppingCartComponent } from './pages/user/shopping-cart/shopping-cart.component';
+import { InvoicesComponent } from './pages/user/invoices/invoices.component';
+import { ViewInvoiceComponent } from './pages/user/view-invoice/view-invoice.component';
 
 const routes: Routes = [{
   path:'',
@@ -112,9 +114,15 @@ const routes: Routes = [{
       path:'shopping-cart',
       component:ShoppingCartComponent
     },{
-      path:':filter',
+      path:'invoices',
+      component:InvoicesComponent//Si ponemos el componente despues de la direccion de abajo, el componente no se lee
+    },{
+      path:'invoice/:id',
+      component:ViewInvoiceComponent
+    },{
+      path:':filter',//Este componente mostrara solo productos o promociones
       component:StartComponent
-    }
+    },
   ]
 }];
 

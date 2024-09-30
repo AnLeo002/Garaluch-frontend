@@ -1,0 +1,25 @@
+<h1 class="text-center">Historial de compras</h1>
+<mat-card *ngIf="!invoicesEmpty()" >
+  <mat-card-content>
+    <table class="table text-center">
+      <tr>
+        <td>Identificador</td>
+        <td>Fecha</td>
+        <td>Total</td>
+        <td>Usuario</td>
+      </tr>
+        <tr *ngFor="let i of invoices" class="invoice" [routerLink]="'/user/invoice/'+i.id">
+          <td>{{i.id}}</td>
+          <td>{{i.date}}</td>
+          <td>${{i.total.toLocaleString('es-ES')}}</td>
+          <td>{{i.username}}</td>
+        </tr>
+    </table>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="flex-center" *ngIf="invoicesEmpty()">
+  <h2 class="p20">El historial de compras se encuentra vacio</h2>
+  <button mat-raised-button color="primary" class="m20" routerLink="/user/">Descubrir más</button>
+</mat-card>
+<app-footer></app-footer>

@@ -27,5 +27,8 @@ export class InvoiceService {
   updateAmount(invoice:any){
     return this.http.put(`${baseUrl}/invoice/update/amount`,invoice)
   }
+  findInvoicesByUsername(username:string){
+    return this.http.get(`${baseUrl}/invoice/findAll/${username}`)
+  }
   
 }

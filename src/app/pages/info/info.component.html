@@ -14,7 +14,7 @@
             {{ object.endDate }}
           </h5>
           <h5>Cantidad:{{ object.amount }}</h5>
-          <h3 id="price">$ {{ object.price }}</h3>
+          <h3 id="price">$ {{ object.price.toLocaleString('es-ES',{ minimumFractionDigits: 0 }) }}</h3>
           <div class="add-zone" *ngIf="!productsAdd(id,refer)">
             <button mat-raised-button color="primary" class="add-btn"
               (click)="add(object.id, refer)">

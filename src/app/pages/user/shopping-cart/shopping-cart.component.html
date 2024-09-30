@@ -14,7 +14,7 @@
         <tr *ngFor="let pro of invoice.promInvoiceDTOList">
           <td class="img"><img src="{{ pro.object.url }}" alt="" /></td>
           <td><h5>{{ pro.object.name }}</h5></td>
-          <td>Precio unidad: <h5>${{pro.object.price}}</h5></td>
+          <td>Precio unidad: <h5>${{pro.object.price.toLocaleString('es-ES')}}</h5></td>
           <td class="flex">
             <div class="counter flex-center">
               <button class=" count" (click)="updateAmountInvoice(pro.object.id,'prom','-')">-</button>
@@ -25,13 +25,13 @@
               <mat-icon color="warn">delete</mat-icon>
             </button>
           </td>
-          <td>Total: <h5>${{pro.object.price*pro.amount}}</h5></td>
+          <td>Total: <h5>${{(pro.object.price*pro.amount).toLocaleString('es-ES')}}</h5></td>
           <hr>
         </tr>
         <tr *ngFor="let pro of invoice.productInvoiceDTOList">
           <td class="img"><img src="{{ pro.object.url }}" alt="" /></td>
           <td><h5>{{pro.object.name}}</h5></td>
-          <td>Precio unidad: <h5>${{pro.object.price}}</h5></td>
+          <td>Precio unidad: <h5>${{pro.object.price.toLocaleString('es-ES')}}</h5></td>
           <td class="flex">
             <div class="counter flex-center">
               <button class=" count" (click)="updateAmountInvoice(pro.object.id,'product','-')">-</button>
@@ -42,7 +42,7 @@
               <mat-icon color="warn">delete</mat-icon>
             </button>
           </td>
-          <td>Total: <h5>${{pro.object.price*pro.amount}}</h5></td>
+          <td>Total: <h5>${{(pro.object.price*pro.amount).toLocaleString('es-ES')}}</h5></td>
           <hr>
         </tr>
       </table>
@@ -60,7 +60,7 @@
           <h4><span>Productos : </span></h4><h4>{{totalPro}}</h4>
         </div>
         <div class="flex-space">
-          <h4><span>Total : </span></h4><h4>{{invoice.total}}</h4>
+          <h4><span>Total : </span></h4><h4>{{invoice.total.toLocaleString('es-ES')}}</h4>
         </div>
         <button mat-raised-button color="primary" class="w100" (click)="saveSale()">
           Continuar compra
