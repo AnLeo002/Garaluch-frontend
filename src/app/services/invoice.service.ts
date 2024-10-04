@@ -30,5 +30,9 @@ export class InvoiceService {
   findInvoicesByUsername(username:string){
     return this.http.get(`${baseUrl}/invoice/findAll/${username}`)
   }
+  findInvoiceWithCompletePro(id:number){
+    return this.http.get(`${baseUrl}/invoice/pro/${id}`)
+  }
+
   
 }

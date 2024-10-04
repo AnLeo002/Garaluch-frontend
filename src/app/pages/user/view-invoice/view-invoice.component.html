@@ -1,1 +1,36 @@
-<p>view-invoice works!</p>
+<mat-card *ngIf="invoice">
+  <article class="flex">
+    <div class="info-invoice">
+      <h2 class="bold">Pedido N°: </h2>
+      <h2>{{ invoice.id }}</h2>
+      <h3 class="bold">Dia de la compra: </h3>
+      <h3>{{ invoice.date }}</h3>
+      <h3 class="bold">Nombre: </h3>
+      <h3>{{ invoice.username }}</h3>
+      <h3 class="bold">Total: </h3>
+      <h3>${{invoice.total}}</h3>
+    </div>
+    <section >
+      <h2 class="text-center bold">Detalles del pedido</h2>
+      <article *ngFor="let pro of invoice.promDTOList" class="flex extra-info">
+        <img src="{{ pro.url }}" alt="img-pro" />
+        <div>
+          <h3 class="bold">{{ pro.name }}</h3>
+          <h4><span class="bold">Cantidad: </span> {{ pro.amount }}</h4>
+          <h4><span class="bold">Precio unidad: </span> ${{pro.price}}</h4>
+          <h4>{{ pro.description }}</h4>
+        </div>
+      </article>
+      <article *ngFor="let pro of invoice.productDTOList" class="flex extra-info">
+        <img src="{{ pro.url }}" alt="img-pro" />
+        <div>
+          <h3 class="bold">{{ pro.name }}</h3>
+          <h4><span class="bold">Cantidad: </span> {{ pro.amount }}</h4>
+          <h4><span class="bold">Precio unidad: </span> ${{pro.price}}</h4>
+          <h4>{{ pro.description }}</h4>
+        </div>
+      </article>
+    </section>
+  </article>
+</mat-card>
+<app-footer></app-footer>
