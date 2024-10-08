@@ -1,32 +1,53 @@
 <mat-card *ngIf="invoice">
   <article class="flex">
     <div class="info-invoice">
-      <h2 class="bold">Pedido N°: </h2>
-      <h2>{{ invoice.id }}</h2>
-      <h3 class="bold">Dia de la compra: </h3>
+      <h2 class="bold">Pedido N° {{ invoice.id }}</h2>
+      <h3 class="bold">Dia de la compra:</h3>
       <h3>{{ invoice.date }}</h3>
-      <h3 class="bold">Nombre: </h3>
+      <h3 class="bold">Nombre:</h3>
       <h3>{{ invoice.username }}</h3>
-      <h3 class="bold">Total: </h3>
-      <h3>${{invoice.total}}</h3>
+      <h3 class="bold">Total:</h3>
+      <h3>${{ invoice.total.toLocaleString("es-ES") }}</h3>
     </div>
-    <section >
+    <section>
       <h2 class="text-center bold">Detalles del pedido</h2>
-      <article *ngFor="let pro of invoice.promDTOList" class="flex extra-info">
-        <img src="{{ pro.url }}" alt="img-pro" />
+      <article *ngFor="let pro of invoice.promDTOList" class="flex-wrap extra-info">
+        <div class="flex">
+          <img src="{{ pro.url }}" alt="img-pro" />
         <div>
           <h3 class="bold">{{ pro.name }}</h3>
           <h4><span class="bold">Cantidad: </span> {{ pro.amount }}</h4>
-          <h4><span class="bold">Precio unidad: </span> ${{pro.price}}</h4>
+          <h4><span class="bold">Precio unidad: </span> ${{ pro.price }}</h4>
           <h4>{{ pro.description }}</h4>
+          <h4>
+            <span class="bold">Productos adicionales:</span>
+            {{ pro.productEntities.length == 0 ? "No" : "Si" }}
+          </h4>
         </div>
+        </div>
+        <section *ngIf="pro.productEntities" class="flex-center">
+          <article *ngFor="let product of pro.productEntities" class="flex-center extra-pro">
+            <img src="{{ product.url }}" alt="img-pro" class="img-pro" />
+            <div>
+              <h4 class="bold">{{ product.name }}</h4>
+              <h5>
+                <span class="bold">Precio unidad: </span> ${{ product.price }}
+              </h5>
+              <h6>{{ product.description }}</h6>
+              
+            </div>
+          </article>
+        </section>
       </article>
-      <article *ngFor="let pro of invoice.productDTOList" class="flex extra-info">
+      <article
+        *ngFor="let pro of invoice.productDTOList"
+        class="flex extra-info"
+      >
         <img src="{{ pro.url }}" alt="img-pro" />
         <div>
           <h3 class="bold">{{ pro.name }}</h3>
           <h4><span class="bold">Cantidad: </span> {{ pro.amount }}</h4>
-          <h4><span class="bold">Precio unidad: </span> ${{pro.price}}</h4>
+          <h4><span class="bold">Precio unidad: </span> ${{ pro.price }}</h4>
           <h4>{{ pro.description }}</h4>
         </div>
       </article>
