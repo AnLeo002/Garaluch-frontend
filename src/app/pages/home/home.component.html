@@ -1,5 +1,20 @@
-<div class="container">
-  <div class="slider">
+<div class="slider">
+  <div class="slides" [style.transform]="'translateX(' + -currentSlide * 100 + 'vw)'">
+    <div class="firstSlide slide">
+      <h2>Bienvenidos a Garaluch</h2>
+    </div>
+    <div class="secondSlide slide">
+      <h2>Lo que buscas en loncheras para el cole</h2>
+    </div>
+    <div class="thirdSlide slide">
+      <h2>Productos de alta calidad</h2>
+    </div>
+  </div>
+  <div class="buttons">
+    <button class="no-di" *ngFor="let slide of [0,1,2]; let i = index" (click)="goToSlide(i)"></button>
+  </div>
+</div>
+<!-- <div class="slider">
     <input type="radio" name="slider" id="slideOne" checked>
     <input type="radio" name="slider" id="slideTwo" >
     <input type="radio" name="slider" id="slideThree" >
@@ -21,10 +36,10 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <section class="sections">
   <h2 class="text-center">Lo que hacemos</h2>
-  <hr>
+  <hr />
   <article class="flex-space maker">
     <h4 class="make make1">Creamos alimentos con sabores deliciosos</h4>
     <h4 class="make make2">Nos preocupamos por satisfacer sus necesidades</h4>
@@ -33,27 +48,31 @@
 </section>
 <section class="sections">
   <h2 class="text-center">Promociones destacadas</h2>
-  <hr>
+  <hr />
   <h1 class="text-center">Promociones</h1>
-    <ul class="flex-grap">
-      <li class="prom column" *ngFor="let prom of promList" [routerLink]="'/info/'+prom.id+'/prom'">
-            <img src="{{prom.url}}" alt="">
-            <h3 >{{prom.name}}</h3>
-            <h4 class="des text-center">{{prom.description}}</h4>
-            <hr>
-      </li>
-    </ul>
+  <ul class="flex-grap">
+    <li class="prom column" *ngFor="let prom of promList"
+      [routerLink]="'/info/' + prom.id + '/prom'">
+      <img src="{{ prom.url }}" alt="" />
+      <h3>{{ prom.name }}</h3>
+      <h4 class="des text-center">{{ prom.description }}</h4>
+      <hr />
+    </li>
+  </ul>
 </section>
 <section>
   <h2 class="text-center">Ubicación</h2>
-    <hr>
+  <hr />
   <article class="flex-around">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.934207599275!2d-74.1890073255273!3d4.605802042473976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9e43bcdf8edb%3A0xd20a5c2efb19151c!2sGimnasio%20Garabatos%20de%20Colores!5e0!3m2!1sen!2sco!4v1715915549561!5m2!1sen!2sco" width="70%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-  <div class="column text-center">
-    <h3>Dirección</h3>
-    <p>Cl. 65g Sur #7920</p>
-    <p>Gimnasio Garabatos de colores, Bogotá</p>
-  </div>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.934207599275!2d-74.1890073255273!3d4.605802042473976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9e43bcdf8edb%3A0xd20a5c2efb19151c!2sGimnasio%20Garabatos%20de%20Colores!5e0!3m2!1sen!2sco!4v1715915549561!5m2!1sen!2sco"
+      width="70%" height="250" style="border: 0" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="column text-center">
+      <h3>Dirección</h3>
+      <p>Cl. 65g Sur #7920</p>
+      <p>Gimnasio Garabatos de colores, Bogotá</p>
+    </div>
   </article>
 </section>
 <app-footer></app-footer>
