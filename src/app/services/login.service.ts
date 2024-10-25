@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import baseUrl from './helper';
 import { Subject } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class LoginService {
 
   public loginStatusSubject = new Subject<boolean>();
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient, private router:Router) { }
   public login(loginData:any){
     return this.httpClient.post(`${baseUrl}/auth/login`,loginData);
    }
@@ -27,6 +28,7 @@ export class LoginService {
    public logOut(){
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("user");
+    this.router.navigate(['/']);
     return true;
    }
    public getToken(){

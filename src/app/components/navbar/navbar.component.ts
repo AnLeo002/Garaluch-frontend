@@ -62,15 +62,10 @@ export class NavbarComponent implements OnInit {
       setTimeout(() => {
         Swal.fire("El tiempo de sesión culminó", "Vuelva a ingresar", "info");
         this.login.logOut();
-        window.location.reload();
-      }, 1800000);
+      }, 180000);
 
     }
 
-  }
-  public logOut() {
-    this.login.logOut();
-    window.location.reload();
   }
   public searchPro() {
     if (!this.proSearch || this.proSearch.trim() === '') {

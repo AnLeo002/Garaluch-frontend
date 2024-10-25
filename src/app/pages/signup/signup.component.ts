@@ -3,56 +3,63 @@ import { LoginService } from '../../services/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../../services/user.service';
 import Swal from 'sweetalert2';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
-export class SignupComponent implements OnInit{
-  public user ={
-    name:"",
-    lastName:"",
-    username:"",
-    password:"",
-    tel:"",
-    email:"",
-    roleRequest:{
-      roleListName:[""]
+export class SignupComponent implements OnInit {
+  public user: any = {
+    name: "",
+    lastName: "",
+    username: "",
+    password: "",
+    tel: "",
+    email: "",
+    roleRequest: {
+      roleListName: [""]
     }
   }
-  constructor(private userService:UserService, private snack:MatSnackBar,private loginService:LoginService,private router:Router){}
+  constructor(private userService: UserService, private snack: MatSnackBar, private loginService: LoginService, private router: Router) { }
   ngOnInit(): void {
   }
-  formSubmit(){
-    console.log(this.user);
-    if(this.user.username =='' || this.user.username == null || 
-    this.user.name =='' || this.user.name == null ||
-    this.user.lastName =='' || this.user.lastName == null ||
-    this.user.tel =='' || this.user.tel == null ||
-    this.user.email =='' || this.user.email == null ||
-    this.user.password =='' || this.user.password == null || this.user.roleRequest.roleListName[0] =='' || this.user.roleRequest.roleListName[0] == null){
-      this.snack.open('Complete todos los campos solicitados','Aceptar',{
-        duration:3000,
-        verticalPosition:'top'
-      });
-      return;
-    }
+  formSubmit() {
+      if (this.isEmpty(this.user)) {
+        this.snack.open('Complete todos los campos solicitados', 'Aceptar', {
+          duration: 3000,
+          verticalPosition: 'top'
+        });
+        return;
 
-    this.userService.registerUser(this.user).subscribe((data:any)=>{
+      }
+    
+    this.userService.registerUser(this.user).subscribe((data: any) => {
       this.loginService.responseToken(data.jwt);
       this.loginService.getCurrentUser(data.username).subscribe(
-        (user)=>{
+        (user) => {
           this.loginService.setUser(user);
-          Swal.fire("Usuario creado","Usuario creado Correctamente","success");
-          this.router.navigate(['/user'])
-      })
-    },error=>{
-      if(error.status == 409){
-        Swal.fire("Nombre de usuario existente","Por favor cambie el nombre de usuario","error"); 
+          window.location.href="/user";
+          Swal.fire("Usuario creado", "Usuario creado Correctamente", "success");
+          
+        })
+    }, error => {
+      if (error.status == 409) {
+        Swal.fire("Nombre de usuario existente", "Por favor cambie el nombre de usuario", "error");
       }
     })
+  }
+  isEmpty(object:any) {
+    for (let i in object) {
+      if (object[i] == "" || object[i] == null) {
+        return true;
+      }
+      if (object.roleRequest && (object.roleRequest.roleListName[0] == '' || object.roleRequest.roleListName[0] == null)) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }
